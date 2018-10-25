@@ -1,4 +1,4 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 
 import java.awt.Color
 import java.awt.image.BufferedImage
@@ -6,7 +6,7 @@ import java.nio.file.{Files, Paths}
 import javax.imageio.ImageIO
 
 import utest._
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 
 object LargeBmpTests extends TestSuite {
   import BmpTests.BmpParse.BmpAst._

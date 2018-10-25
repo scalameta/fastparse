@@ -1,5 +1,5 @@
-package fastparse.byte
-import fastparse.byte.all._
+package scala.meta.internal.fastparse.byte
+import scala.meta.internal.fastparse.byte.all._
 import BE._
 case class Midi(format: Int, tickDiv: Midi.TickDiv, tracks: Seq[Seq[(Int, Midi.TrackEvent)]])
 object Midi{

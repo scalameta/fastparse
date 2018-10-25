@@ -1,7 +1,7 @@
 package pythonparse
 
-import fastparse.core.Implicits.Sequencer
-import fastparse.noApi._
+import scala.meta.internal.fastparse.core.Implicits.Sequencer
+import scala.meta.internal.fastparse.noApi._
 import WsApi._
 import acyclic.file
 import Lexical.kw

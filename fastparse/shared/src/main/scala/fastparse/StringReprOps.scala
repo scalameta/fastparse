@@ -1,5 +1,5 @@
-package fastparse
-import fastparse.utils._
+package scala.meta.internal.fastparse
+import scala.meta.internal.fastparse.utils._
 import acyclic.file
 
 object StringReprOps extends ReprOps[Char, String] {

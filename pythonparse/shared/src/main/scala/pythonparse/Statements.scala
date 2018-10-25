@@ -1,5 +1,5 @@
 package pythonparse
-import fastparse.noApi._
+import scala.meta.internal.fastparse.noApi._
 import WsApi._
 import Expressions._
 import acyclic.file

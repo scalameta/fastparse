@@ -1,6 +1,6 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.utils.MacroUtils
+import scala.meta.internal.fastparse.utils.MacroUtils
 
 /**
   * Fast, pre-computed character predicates for charactes from 0 to 65535

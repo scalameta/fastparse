@@ -1,9 +1,9 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.core.Implicits.{Repeater, Sequencer}
-import fastparse.all._
-import fastparse.core.{ParserApiImpl, Precedence}
-import fastparse.parsers.Combinators.Repeat
+import scala.meta.internal.fastparse.core.Implicits.{Repeater, Sequencer}
+import scala.meta.internal.fastparse.all._
+import scala.meta.internal.fastparse.core.{ParserApiImpl, Precedence}
+import scala.meta.internal.fastparse.parsers.Combinators.Repeat
 
 
 

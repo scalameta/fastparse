@@ -1,6 +1,6 @@
 package classparse
 
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 import BE._
 object ClassAttributes {
   import ClassParse.Info._
@@ -19,7 +19,7 @@ object ClassAttributes {
       }
 
     override def toString = {
-      import fastparse.byte.ByteReprOps
+      import scala.meta.internal.fastparse.byte.ByteReprOps
       s"BasicAttribute($name,${ByteReprOps.prettyPrint(info)})"
     }
   }

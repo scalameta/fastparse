@@ -2,10 +2,10 @@ package demo
 
 import classparse.ClassParse
 import cssparse.PrettyPrinter
-import fastparse.byte.Midi
+import scala.meta.internal.fastparse.byte.Midi
 import org.scalajs.dom
 import org.scalajs.dom.{Event, UIEvent, html}
-import fastparse.utils.Utils
+import scala.meta.internal.fastparse.utils.Utils
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSExport, JSExportTopLevel}
@@ -93,7 +93,7 @@ object DemoMain {
   def playMusic(midi: fastparse.byte.Midi,
                 noteLogger: String => Unit,
                 progressLogger: String => Unit) = {
-    import fastparse.byte.Midi._, MidiData._
+    import scala.meta.internal.fastparse.byte.Midi._, MidiData._
     case class TrackInfo(var savedTicks: Int, var track: List[(Int, Midi.TrackEvent)]){
       def tillNext = track.head._1 - savedTicks
     }
@@ -236,7 +236,7 @@ object DemoMain {
   }
   @JSExport
   def css(container: html.Div) = {
-   import fastparse.all._
+   import scala.meta.internal.fastparse.all._
    helper(container, cssparse.CssRulesParser.ruleList.map(PrettyPrinter.printRuleList(_)),
    """b,
      |strong {
@@ -255,8 +255,8 @@ object DemoMain {
   }
   @JSExport
   def bmp(container: html.Div) = {
-    import fastparse.byte.all._
-    import fastparse.byte.BmpTests.BmpParse
+    import scala.meta.internal.fastparse.byte.all._
+    import scala.meta.internal.fastparse.byte.BmpTests.BmpParse
 
     helperByteFile(container, BmpParse.bmp.map(bmp => {
       bmp.bitmapHeader match {
@@ -275,7 +275,7 @@ object DemoMain {
   }
   @JSExport
   def clss(container: html.Div) = {
-    import fastparse.byte.all._
+    import scala.meta.internal.fastparse.byte.all._
     helperByteFile(container, classparse.ClassParse.classFile.map(c => {
       val ast = ClassParse.Ast.convertToAst(c)
       s"""

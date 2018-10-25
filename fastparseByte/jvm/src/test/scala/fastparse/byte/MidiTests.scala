@@ -1,8 +1,8 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 
 import java.nio.file.{Files, Paths}
 
-import fastparse.byte.all.Bytes
+import scala.meta.internal.fastparse.byte.all.Bytes
 import utest._
 
 object MidiTests extends TestSuite{

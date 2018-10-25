@@ -4,7 +4,7 @@ import java.nio.file.{Files, Paths}
 
 import perftests.Utils
 import utest._
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 
 object BmpParse extends TestSuite {
   val lenaRecource = getClass.getResource("/lena.bmp")

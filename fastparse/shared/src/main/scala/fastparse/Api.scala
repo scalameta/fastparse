@@ -1,9 +1,10 @@
-package fastparse
+package scala.meta.internal.fastparse
 import acyclic.file
 
 import language.experimental.macros
-import fastparse.parsers.Intrinsics
-import fastparse.utils.{ElemSetHelper, ReprOps}
+import scala.meta.internal.fastparse.parsers.Intrinsics
+import scala.meta.internal.fastparse.utils.{ElemSetHelper, ReprOps}
+import scala.meta.internal.fastparse
 
 import scala.reflect.ClassTag
 /**

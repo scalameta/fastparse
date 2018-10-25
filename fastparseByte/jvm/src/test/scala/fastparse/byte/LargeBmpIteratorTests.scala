@@ -1,8 +1,8 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 
 import java.io.InputStream
 
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 import utest._
 
 object LargeBmpIteratorTests extends TestSuite {

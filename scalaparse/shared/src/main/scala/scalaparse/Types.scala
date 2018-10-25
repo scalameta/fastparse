@@ -1,6 +1,6 @@
 package scalaparse
 
-import fastparse.noApi._
+import scala.meta.internal.fastparse.noApi._
 trait Types extends Core{
   import WhitespaceApi._
   def TypeExpr: P0

@@ -1,8 +1,8 @@
-package fastparse
+package scala.meta.internal.fastparse
 package core
 import acyclic.file
 
-import fastparse.utils._
+import scala.meta.internal.fastparse.utils._
 
 import scala.collection.mutable
 import scala.reflect.ClassTag

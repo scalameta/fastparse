@@ -1,7 +1,7 @@
 package scalaparse
 
 import utest.assert
-import fastparse.all._
+import scala.meta.internal.fastparse.all._
 
 
 

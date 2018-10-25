@@ -1,4 +1,4 @@
-package fastparse.utils
+package scala.meta.internal.fastparse.utils
 
 import acyclic.file
 import scala.language.experimental.macros
@@ -25,7 +25,7 @@ object MacroUtils{
     )
     val txt = Utils.HexUtils.ints2Hex(array)
     c.Expr[Utils.BitSet[Char]](q"""
-      new fastparse.utils.Utils.BitSet(fastparse.utils.Utils.HexUtils.hex2Ints($txt), $first, $last)
+      new _root_.scala.meta.internal.fastparse.utils.Utils.BitSet(_root_.scala.meta.internal.fastparse.utils.Utils.HexUtils.hex2Ints($txt), $first, $last)
     """)
   }
 }

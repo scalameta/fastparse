@@ -1,9 +1,9 @@
-package fastparse.parsers
+package scala.meta.internal.fastparse.parsers
 import acyclic.file
-import fastparse.core.Mutable
-import fastparse.core.Parser
-import fastparse.core.ParseCtx
-import fastparse.utils.ReprOps
+import scala.meta.internal.fastparse.core.Mutable
+import scala.meta.internal.fastparse.core.Parser
+import scala.meta.internal.fastparse.core.ParseCtx
+import scala.meta.internal.fastparse.utils.ReprOps
 
 /**
  * Parsers that work with the output of a successful parse

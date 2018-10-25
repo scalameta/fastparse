@@ -1,4 +1,4 @@
-val Constants = _root_.fastparse.Constants
+val Constants = _root_.scala.meta.internal.fastparse.Constants
 import sbtcrossproject.{crossProject, CrossType}
 import sbt.Keys._
 
@@ -23,7 +23,7 @@ val shared = Seq(
     "com.lihaoyi" %%% "sourcecode" % "0.1.4"
   ),
   scalaJSStage in Global := FullOptStage,
-  organization := "com.lihaoyi",
+  organization := "com.geirsson",
   version := Constants.version,
   scalaVersion := Constants.scala212,
   crossScalaVersions := Seq(Constants.scala210, Constants.scala211, Constants.scala212),
@@ -105,7 +105,7 @@ lazy val fastparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
           """
       }
       val output = s"""
-          package fastparse.core
+          package scala.meta.internal.fastparse.core
           trait SequencerGen[Sequencer[_, _, _]] extends LowestPriSequencer[Sequencer]{
             protected[this] def Sequencer0[A, B, C](f: (A, B) => C): Sequencer[A, B, C]
             ${tuples.mkString("\n")}

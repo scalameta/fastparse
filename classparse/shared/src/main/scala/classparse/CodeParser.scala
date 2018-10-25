@@ -1,6 +1,6 @@
 package classparse
 
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 import BE._
 object CodeParser {
   sealed abstract class OpCode

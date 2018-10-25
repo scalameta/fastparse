@@ -1,7 +1,7 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 
 import utest._
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.byte.all._
 import scala.collection.mutable.ArrayBuffer
 import LE._
 /**

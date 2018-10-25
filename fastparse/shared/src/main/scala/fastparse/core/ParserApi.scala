@@ -1,10 +1,10 @@
-package fastparse.core
+package scala.meta.internal.fastparse.core
 import acyclic.file
-import fastparse.core.Implicits._
-import fastparse.parsers.Combinators.{Capturing, Cut, Either, Logged, Not, Opaque, Optional, Repeat, Sequence}
-import fastparse.parsers.Terminals.Pass
-import fastparse.parsers.Transformers.{Filtered, FlatMapped, Mapper}
-import fastparse.utils.ReprOps
+import scala.meta.internal.fastparse.core.Implicits._
+import scala.meta.internal.fastparse.parsers.Combinators.{Capturing, Cut, Either, Logged, Not, Opaque, Optional, Repeat, Sequence}
+import scala.meta.internal.fastparse.parsers.Terminals.Pass
+import scala.meta.internal.fastparse.parsers.Transformers.{Filtered, FlatMapped, Mapper}
+import scala.meta.internal.fastparse.utils.ReprOps
 
 abstract class ParserApi[+T, Elem, Repr]()(implicit repr: ReprOps[Elem, Repr]) {
 

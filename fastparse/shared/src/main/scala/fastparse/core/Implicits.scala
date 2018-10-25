@@ -1,4 +1,4 @@
-package fastparse.core
+package scala.meta.internal.fastparse.core
 import acyclic.file
 import scala.collection.mutable
 

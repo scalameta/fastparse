@@ -1,6 +1,6 @@
-package fastparse.utils
+package scala.meta.internal.fastparse.utils
 import acyclic.file
-import fastparse.utils.Utils.IsReachable
+import scala.meta.internal.fastparse.utils.Utils.IsReachable
 
 import scala.reflect.ClassTag
 

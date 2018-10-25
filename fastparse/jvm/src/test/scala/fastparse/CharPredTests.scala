@@ -1,8 +1,8 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.JsonTests._
-import fastparse.core.Parsed
-import fastparse.utils.{Generator, Utils}
+import scala.meta.internal.fastparse.JsonTests._
+import scala.meta.internal.fastparse.core.Parsed
+import scala.meta.internal.fastparse.utils.{Generator, Utils}
 import utest._
 
 /**

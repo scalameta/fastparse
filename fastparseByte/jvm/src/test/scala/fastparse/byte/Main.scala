@@ -1,4 +1,4 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 
 import javax.sound.midi.MidiSystem
 

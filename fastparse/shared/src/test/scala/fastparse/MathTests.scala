@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import utest._
 
@@ -17,7 +17,7 @@ object MathTests extends TestSuite{
     }}
   }
 
-  import fastparse.all._
+  import scala.meta.internal.fastparse.all._
 
   val number: P[Int] = P( CharIn('0'to'9').rep(1).!.map(_.toInt) )
   val parens: P[Int] = P( "(" ~/ addSub ~ ")" )

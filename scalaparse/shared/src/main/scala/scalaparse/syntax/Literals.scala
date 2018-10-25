@@ -1,7 +1,7 @@
 package scalaparse.syntax
 
 import acyclic.file
-import fastparse.all._
+import scala.meta.internal.fastparse.all._
 
 
 import Identifiers._

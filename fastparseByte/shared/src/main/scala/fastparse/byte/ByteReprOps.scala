@@ -1,7 +1,7 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 import acyclic.file
-import fastparse.utils.{ElemSetHelper, Generator, ParserInput, ReprOps}
-import fastparse.utils.Utils.HexUtils
+import scala.meta.internal.fastparse.utils.{ElemSetHelper, Generator, ParserInput, ReprOps}
+import scala.meta.internal.fastparse.utils.Utils.HexUtils
 import scodec.bits.ByteVector
 
 object ByteBitSetHelper extends ElemSetHelper[Byte] {

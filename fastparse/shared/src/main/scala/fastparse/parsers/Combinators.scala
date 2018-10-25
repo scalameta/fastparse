@@ -1,11 +1,11 @@
-package fastparse.parsers
+package scala.meta.internal.fastparse.parsers
 import acyclic.file
-import fastparse.utils.ReprOps
-import fastparse.core.Implicits
+import scala.meta.internal.fastparse.utils.ReprOps
+import scala.meta.internal.fastparse.core.Implicits
 import Terminals._
-import fastparse.core.Parsed._
-import fastparse.core.Mutable
-import fastparse.core.{ParseCtx, Parsed, Parser, Precedence}
+import scala.meta.internal.fastparse.core.Parsed._
+import scala.meta.internal.fastparse.core.Mutable
+import scala.meta.internal.fastparse.core.{ParseCtx, Parsed, Parser, Precedence}
 
 import scala.annotation.tailrec
 import scala.collection.mutable.ArrayBuffer

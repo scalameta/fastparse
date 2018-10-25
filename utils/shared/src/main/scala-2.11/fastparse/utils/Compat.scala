@@ -1,4 +1,4 @@
-package fastparse.utils
+package scala.meta.internal.fastparse.utils
 
 object Compat{
   type Context = scala.reflect.macros.blackbox.Context

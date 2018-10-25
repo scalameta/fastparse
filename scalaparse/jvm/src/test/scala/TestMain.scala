@@ -1,4 +1,5 @@
-import fastparse.core.Parsed
+import scala.meta.internal.fastparse.core.Parsed
+import scala.meta.internal.fastparse
 
 /**
   * Created by lihaoyi on 13/5/17.

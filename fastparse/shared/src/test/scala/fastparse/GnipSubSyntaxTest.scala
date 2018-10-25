@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import utest._
 
@@ -14,10 +14,10 @@ import scala.language.postfixOps
 object GnipSubSyntaxTest extends TestSuite {
   class GnipRuleParser {
     val White = WhitespaceApi.Wrapper {
-      import fastparse.all._
+      import scala.meta.internal.fastparse.all._
       NoTrace(" ".rep)
     }
-    import fastparse.noApi._
+    import scala.meta.internal.fastparse.noApi._
     import White._
 
     private val keyword = P(CharIn('a' to 'z')!)
@@ -34,8 +34,8 @@ object GnipSubSyntaxTest extends TestSuite {
   }
 
   object GnipRuleValidator {
-    import fastparse.core.Parsed._
-    import fastparse.core.ParseError
+    import scala.meta.internal.fastparse.core.Parsed._
+    import scala.meta.internal.fastparse.core.ParseError
 
     def apply(rule: String) = (new GnipRuleParser).parse(rule) match {
       case Success(matched, index) => scala.util.Success(matched)

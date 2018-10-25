@@ -1,7 +1,7 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import all._
-import fastparse.core.Logger
+import scala.meta.internal.fastparse.core.Logger
 import utest._
 
 /**
@@ -13,7 +13,7 @@ object ExampleTests extends TestSuite{
   val tests = Tests {
     'basic - {
       'simple - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
         val parseA = P( "a" )
 
         val Parsed.Success(value, successIndex) = parseA.parse("a")
@@ -408,7 +408,7 @@ object ExampleTests extends TestSuite{
       def check(a: Any, s: String) = assert(a.toString == s.trim)
       'original - {
         object Foo{
-          import fastparse.all._
+          import scala.meta.internal.fastparse.all._
           val plus = P( "+" )
           val num = P( CharIn('0' to '9').rep(1) ).!.map(_.toInt)
           val side = P( "(" ~ expr ~ ")" | num )
@@ -424,7 +424,7 @@ object ExampleTests extends TestSuite{
       }
       'cuts - {
         object Foo{
-          import fastparse.all._
+          import scala.meta.internal.fastparse.all._
           val plus = P( "+" )
           val num = P( CharIn('0' to '9').rep(1) ).!.map(_.toInt)
           val side = P( "(" ~/ expr ~ ")" | num )
@@ -439,7 +439,7 @@ object ExampleTests extends TestSuite{
         val captured = collection.mutable.Buffer.empty[String]
         implicit val logger = Logger(captured.append(_))
         object Foo{
-          import fastparse.all._
+          import scala.meta.internal.fastparse.all._
           val plus = P( "+" )
           val num = P( CharIn('0' to '9').rep(1) ).!.map(_.toInt)
           val side = P( "(" ~/ expr ~ ")" | num ).log()

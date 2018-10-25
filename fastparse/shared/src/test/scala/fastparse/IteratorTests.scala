@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import utest._
 
@@ -10,7 +10,7 @@ object IteratorTests extends TestSuite {
 
 
   def toInput(string: String) = {
-    import fastparse.all._
+    import scala.meta.internal.fastparse.all._
     class LoggedDropsParserInput(data: Iterator[String])
       extends IteratorParserInput(data) {
 
@@ -29,7 +29,7 @@ object IteratorTests extends TestSuite {
   val tests = Tests {
 
     'basic - {
-      import fastparse.all._
+      import scala.meta.internal.fastparse.all._
       val p = P( "ab" ~/ "cd".rep().! ~ "ef" | "z" )
 
       val Parsed.Success(res, i) = p.parseIterator(
@@ -40,7 +40,7 @@ object IteratorTests extends TestSuite {
     }
 
     'immediateCutDrop - {
-      import fastparse.all._
+      import scala.meta.internal.fastparse.all._
       val p = P( "ab" ~/ "cd" | "z" )
 
       val input = toInput("abcdef")
@@ -50,9 +50,9 @@ object IteratorTests extends TestSuite {
       assert(input.drops == Set(2, 4))
     }
     'whitespaceImmediateCutDrop - {
-      import fastparse.noApi._
+      import scala.meta.internal.fastparse.noApi._
       val White = fastparse.WhitespaceApi.Wrapper{
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
         NoTrace(" ".? ~ " ".rep)
       }
       import White._
@@ -67,7 +67,7 @@ object IteratorTests extends TestSuite {
     'topLevelNoCuts - {
       // Top-level sequences, which are not inside any `|`s or `.rep`s or `.?`s,
       // should dropBuffer immediately after every `~`, even without any cuts
-      import fastparse.all._
+      import scala.meta.internal.fastparse.all._
 
       val p = P( "a" ~ "b" ~ "c")
       val capt = P( p ~ p ~ p)
@@ -77,7 +77,7 @@ object IteratorTests extends TestSuite {
     }
     'cuts - {
       'capturing - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( "a" ~/ "b" ~/ "c")
         val capt = P( p.! ~ p.! ~ p.!)
@@ -91,7 +91,7 @@ object IteratorTests extends TestSuite {
       }
 
       'nocut - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( "a" ~/ "b" ~/ "c")
         val nocut = P((NoCut(p) ~ NoCut(p) ~/ NoCut(p)) | "abcd")
@@ -112,7 +112,7 @@ object IteratorTests extends TestSuite {
       }
 
       'either - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( "a" ~ "b" ~ "c")
         val either = P( (p ~ End) | ("abc" ~ p ~ End) | ("abcabc" ~ p ~ End))
@@ -140,7 +140,7 @@ object IteratorTests extends TestSuite {
       }
 
       'rep - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( "a" ~ "b" ~ "c")
         val rep = P( (p.rep ~ "d") | (p.rep ~ "e") )
@@ -162,7 +162,7 @@ object IteratorTests extends TestSuite {
       }
 
       'all - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( "a" ~ "b" ~ "c" ~/ "d")
         val np = NoCut(p)
@@ -180,9 +180,9 @@ object IteratorTests extends TestSuite {
       }
 
       'whitespaceApi - {
-        import fastparse.noApi._
+        import scala.meta.internal.fastparse.noApi._
         val White = fastparse.WhitespaceApi.Wrapper{
-          import fastparse.all._
+          import scala.meta.internal.fastparse.all._
           NoTrace(" ".? ~/ " ".rep) // note that the whitespace delimiter has cut
         }
         import White._
@@ -213,7 +213,7 @@ object IteratorTests extends TestSuite {
       }
 
       'zeroDrops - {
-        import fastparse.all._
+        import scala.meta.internal.fastparse.all._
 
         val p = P( (("big string, " ~ ("another string, " ~ ("a".? ~/ "b".?)) | "small string, ") ~ "end of input") | "some other input" )
 
@@ -227,7 +227,7 @@ object IteratorTests extends TestSuite {
       }
     }
     'traceFailure - {
-      import fastparse.all._
+      import scala.meta.internal.fastparse.all._
       P("[" ~ "]").parse("[ ]").asInstanceOf[Parsed.Failure].extra.traced
       val e = intercept[RuntimeException] {
         P("[" ~ "]").parseIterator(Iterator("[", " ", "]")).asInstanceOf[Parsed.Failure].extra.traced

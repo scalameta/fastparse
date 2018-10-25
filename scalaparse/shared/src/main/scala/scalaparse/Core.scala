@@ -5,9 +5,10 @@ import syntax.{Key, Basic}
 
 import scala.language.implicitConversions
 import syntax.Identifiers
-import fastparse.noApi._
+import scala.meta.internal.fastparse
+import scala.meta.internal.fastparse.noApi._
 trait Core extends syntax.Literals{
-  import fastparse.noApi._
+  import scala.meta.internal.fastparse.noApi._
 
   class Wrapper2(WL: P0){
     implicit def parserApi2[T, V](p0: T)(implicit c: T => P[V]): WhitespaceApi2[V] =

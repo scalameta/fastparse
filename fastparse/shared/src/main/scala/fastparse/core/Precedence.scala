@@ -1,4 +1,4 @@
-package fastparse.core
+package scala.meta.internal.fastparse.core
 import acyclic.file
 /**
  * Something which contains an operator precedence, which can be used

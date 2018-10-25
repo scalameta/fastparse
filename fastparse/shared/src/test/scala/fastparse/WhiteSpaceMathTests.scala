@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import acyclic.file
 import utest._
@@ -8,10 +8,10 @@ import utest._
  */
 object WhiteSpaceMathTests extends TestSuite{
   val White = WhitespaceApi.Wrapper{
-    import fastparse.all._
+    import scala.meta.internal.fastparse.all._
     NoTrace(" ".rep)
   }
-  import fastparse.noApi._
+  import scala.meta.internal.fastparse.noApi._
   import White._
   def eval(tree: (Int, Seq[(String, Int)])): Int = {
     val (base, ops) = tree

@@ -1,8 +1,8 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 import acyclic.file
-import fastparse._
-import fastparse.core.ParserApi
-import fastparse.parsers.{Intrinsics, Terminals}
+import scala.meta.internal.fastparse._
+import scala.meta.internal.fastparse.core.ParserApi
+import scala.meta.internal.fastparse.parsers.{Intrinsics, Terminals}
 import scodec.bits.ByteVector
 
 

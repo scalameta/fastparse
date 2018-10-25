@@ -1,8 +1,8 @@
 package perftests
 
-import fastparse.utils.IteratorParserInput
-import fastparse.core.{Parsed, Parser}
-import fastparse.utils.{IteratorParserInput, ReprOps}
+import scala.meta.internal.fastparse.utils.IteratorParserInput
+import scala.meta.internal.fastparse.core.{Parsed, Parser}
+import scala.meta.internal.fastparse.utils.{IteratorParserInput, ReprOps}
 
 import scala.collection.mutable
 import scala.reflect.ClassTag

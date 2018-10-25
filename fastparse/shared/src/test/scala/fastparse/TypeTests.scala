@@ -1,6 +1,6 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.core.Implicits
+import scala.meta.internal.fastparse.core.Implicits
 
 /**
  * Make sure the type-level logic does the right thing. Doesn't

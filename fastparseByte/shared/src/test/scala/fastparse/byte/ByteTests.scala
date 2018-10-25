@@ -1,4 +1,4 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 import java.nio.{ByteBuffer, ByteOrder}
 
 import utest._
@@ -8,7 +8,7 @@ object ByteTests extends TestSuite {
   val tests = Tests {
     'basic - {
       'simple - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val parseA = P( BS(1, 2, 3) )
 
@@ -25,7 +25,7 @@ object ByteTests extends TestSuite {
       }
 
       'sequence - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val ab = P( BS(1) ~ BS(2) )
 
@@ -36,7 +36,7 @@ object ByteTests extends TestSuite {
       }
 
       'repeat - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val ab = P( BS(1).rep ~ BS(2) )
         val Parsed.Success(_, 8) = ab.parse(hex"01 01 01 01 01 01 01 02")
@@ -57,7 +57,7 @@ object ByteTests extends TestSuite {
       }
 
       'optional - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val option = P( BS(3).? ~ BS(1).rep().! ~ End )
 
@@ -72,7 +72,7 @@ object ByteTests extends TestSuite {
       }
 
       'either - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val either = P( (BS(2, 2) | BS(3, 3, 3) | BS(4)).rep() ~ End )
 
@@ -87,7 +87,7 @@ object ByteTests extends TestSuite {
 
 
       'end - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val noEnd = P( BS(1).rep ~ BS(2) )
         val withEnd = P( BS(1).rep ~ BS(2) ~ End )
@@ -98,7 +98,7 @@ object ByteTests extends TestSuite {
       }
 
       'start - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val ab = P( ((BS(1) | Start) ~ BS(2)).rep ~ End ).!
 
@@ -113,14 +113,14 @@ object ByteTests extends TestSuite {
       }
 
       'passfail - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val Parsed.Success((), 0) = Pass.parse(hex"04 08 15 16 23 42")
         val Parsed.Failure(Fail, 0, _) = Fail.parse(hex"04 08 15 16 23 42")
       }
 
       'index - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val finder = P( BS(1, 1, 1).rep ~ Index ~ BS(2, 2, 2) ~ BS(3, 3, 3).rep )
 
@@ -128,7 +128,7 @@ object ByteTests extends TestSuite {
       }
 
       'capture - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val capture1 = P( BS(1).rep.! ~ BS(2) ~ End )
 
@@ -157,7 +157,7 @@ object ByteTests extends TestSuite {
       }
 
       'unapply - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val capture1 = P( BS(1).rep.! ~ BS(2) ~ End )
 
@@ -189,7 +189,7 @@ object ByteTests extends TestSuite {
       }
 
       'anybyte - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val ab = P( BS(1) ~ AnyByte.! ~ BS(1) )
 
@@ -206,7 +206,7 @@ object ByteTests extends TestSuite {
       }
 
       'lookahead - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val keyword = P( (BS(1, 2, 3) ~ &(BS(4))).!.rep )
 
@@ -217,7 +217,7 @@ object ByteTests extends TestSuite {
       }
 
       'neglookahead - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val keyword = P( BS(1, 2, 3) ~ !BS(0) ~ AnyByte ~ BS(5, 6, 7) ).!
 
@@ -229,7 +229,7 @@ object ByteTests extends TestSuite {
       }
 
       'map - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val binary = P( (BS(0) | BS(1)).rep.! )
 
@@ -241,7 +241,7 @@ object ByteTests extends TestSuite {
       }
 
       'filter - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val nullTerminated = P( (Int8.filter(_ != 0).rep().! ~ BS(0)).rep() )
 
@@ -252,7 +252,7 @@ object ByteTests extends TestSuite {
       }
 
       'flatMap - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val lengthPrefixed = P( Int8.flatMap(AnyBytes(_).!).rep() )
 
@@ -264,7 +264,7 @@ object ByteTests extends TestSuite {
 
 
       'bytesWhile - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val nullTerminated = P( (BytesWhile(_ != 0).! ~ BS(0)).rep() )
 
@@ -275,7 +275,7 @@ object ByteTests extends TestSuite {
       }
 
       'bytesWhileIn - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val nullTerminated = P( (BytesWhileIn(hex"de ad be ef".toSeq).! ~ BS(0)).rep() )
 
@@ -286,7 +286,7 @@ object ByteTests extends TestSuite {
       }
 
       'bytePred - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val nullTerminated = P( (BytePred(_ != 0).rep().! ~ BS(0)).rep() )
 
@@ -298,7 +298,7 @@ object ByteTests extends TestSuite {
     }
 
     'debugging - {
-      import fastparse.byte.all._
+      import scala.meta.internal.fastparse.byte.all._
       def check(a: Any, s: String) = assert(a.toString == s.trim)
       'original - {
         object Foo{
@@ -357,7 +357,7 @@ object ByteTests extends TestSuite {
     'example - {
       'bytevector - {
         'construction - {
-          import fastparse.byte.all._
+          import scala.meta.internal.fastparse.byte.all._
 
           // Constructing a short ByteVector from bytes
           val a = Bytes(0x01, 0xff)
@@ -382,7 +382,7 @@ object ByteTests extends TestSuite {
           assert(e.toString == "ByteVector(8 bytes, 0xcafebabedeadbeef)")
         }
         'operations - {
-          import fastparse.byte.all._
+          import scala.meta.internal.fastparse.byte.all._
 
           val a = Bytes(0xff, 0xff)
           val b = Bytes(0x01, 0x01)
@@ -424,7 +424,7 @@ object ByteTests extends TestSuite {
 
         }
         'hexBytes - {
-          import fastparse.byte.all._
+          import scala.meta.internal.fastparse.byte.all._
 
           // Constructing `Bytes` via their hex values
           assert(
@@ -464,7 +464,7 @@ object ByteTests extends TestSuite {
         }
       }
       'prettyBytesBare - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val blob = Bytes(
           "The quick brown fox jumps over the lazy dog. She sells " +
@@ -487,7 +487,7 @@ object ByteTests extends TestSuite {
         )
       }
       'prettyBytesMarker - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val blob = Bytes(
           "The quick brown fox jumps over the lazy dog. She sells " +
@@ -514,7 +514,7 @@ object ByteTests extends TestSuite {
         )
       }
       'splash - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         case class Struct(f: Float, i: Int, s: String, b: Bytes)
 
@@ -547,7 +547,7 @@ object ByteTests extends TestSuite {
       }
 
       'bs - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val parser = P( BS(0xDE, 0xAD, 0xBE, 0xEF) )
 
@@ -556,7 +556,7 @@ object ByteTests extends TestSuite {
       }
 
       'bsBytes - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val parser1 = P( BS(hex"deadbeef") )
 
@@ -571,7 +571,7 @@ object ByteTests extends TestSuite {
       }
 
       'udp - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         case class UdpPacket(sourcePort: Int,
                              destPort: Int,
@@ -609,7 +609,7 @@ object ByteTests extends TestSuite {
       }
 
       'words - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         def allZeroesByteArray = Bytes(0, 0, 0, 0, 0, 0, 0, 0)
 
@@ -634,7 +634,7 @@ object ByteTests extends TestSuite {
       }
 
       'int8{
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val p = P( Int8 )
 
@@ -653,7 +653,7 @@ object ByteTests extends TestSuite {
 
 
       'uint8{
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val p = P( UInt8 )
 
@@ -671,7 +671,7 @@ object ByteTests extends TestSuite {
       }
 
       'endian - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val p1 = P( BE.Int16 )
         val Parsed.Success(result1, _) = p1.parse(Bytes(1, 0)) // 01 00
@@ -697,7 +697,7 @@ object ByteTests extends TestSuite {
 
 
       'unsignedEndian - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val p1 = P( BE.Int64 )
         val bytes1 = Bytes(1, 0, 0, 0, 0, 0, 0, 0) // 01 00 00 00 00 00 00 00
@@ -719,7 +719,7 @@ object ByteTests extends TestSuite {
 
 
       'floats - {
-        import fastparse.byte.all._
+        import scala.meta.internal.fastparse.byte.all._
 
         val p1 = P( BE.Float32 )
         val bytes1 = Bytes(64, 73, 15, -37) // 40 49 0f db
@@ -742,7 +742,7 @@ object ByteTests extends TestSuite {
     }
 
     'prettyBytes - {
-      import fastparse.byte.all._
+      import scala.meta.internal.fastparse.byte.all._
 
       def check(inputHex: String,
                 expected: String,
@@ -981,7 +981,7 @@ object ByteTests extends TestSuite {
     }
 
     'endianness - {
-      import fastparse.byte.all._
+      import scala.meta.internal.fastparse.byte.all._
       def check[T](size: Int,
                    range: Iterator[T],
                    beParser: P[T],

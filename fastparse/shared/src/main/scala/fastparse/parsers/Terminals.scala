@@ -1,10 +1,10 @@
-package fastparse.parsers
+package scala.meta.internal.fastparse.parsers
 import acyclic.file
-import fastparse.utils.{ParserInput, ReprOps}
-import fastparse.core.ParseCtx
+import scala.meta.internal.fastparse.utils.{ParserInput, ReprOps}
+import scala.meta.internal.fastparse.core.ParseCtx
 
 import scala.annotation.tailrec
-import fastparse.core.Parser
+import scala.meta.internal.fastparse.core.Parser
 
 import scala.collection.mutable.ArrayBuffer
 /**

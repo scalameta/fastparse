@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 object Constants{
   val version = "1.0.0"
   val scala210 = "2.10.6"

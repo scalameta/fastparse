@@ -1,7 +1,7 @@
 package classparse
 
-import fastparse.utils.Base64.Decoder
-import fastparse.byte.all._
+import scala.meta.internal.fastparse.utils.Base64.Decoder
+import scala.meta.internal.fastparse.byte.all._
 import utest._
 
 import scala.collection.mutable.ArrayBuffer

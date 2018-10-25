@@ -1,7 +1,7 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.JsonTests._
-import fastparse.core.Parsed
+import scala.meta.internal.fastparse.JsonTests._
+import scala.meta.internal.fastparse.core.Parsed
 import utest._
 /**
  * Parse the JSON from the parboiled2 testsuite and make

@@ -1,8 +1,8 @@
 package scalaparse.syntax
 
 import acyclic.file
-import fastparse.all._
-import fastparse.CharPredicates.{isLetter, isDigit}
+import scala.meta.internal.fastparse.all._
+import scala.meta.internal.fastparse.CharPredicates.{isLetter, isDigit}
 import Basic._
 object Identifiers{
 

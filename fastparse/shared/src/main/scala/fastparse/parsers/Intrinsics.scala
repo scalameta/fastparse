@@ -1,8 +1,8 @@
-package fastparse.parsers
+package scala.meta.internal.fastparse.parsers
 import acyclic.file
-import fastparse.utils.Utils._
-import fastparse.core.{ParseCtx, Parsed, Parser, Precedence}
-import fastparse.utils.{ElemSetHelper, Generator, ReprOps, Utils}
+import scala.meta.internal.fastparse.utils.Utils._
+import scala.meta.internal.fastparse.core.{ParseCtx, Parsed, Parser, Precedence}
+import scala.meta.internal.fastparse.utils.{ElemSetHelper, Generator, ReprOps, Utils}
 
 /**
  * High-performance intrinsics for parsing common patterns. All

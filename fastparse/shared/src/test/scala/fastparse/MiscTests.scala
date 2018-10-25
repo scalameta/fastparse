@@ -1,7 +1,7 @@
-package fastparse
+package scala.meta.internal.fastparse
 import all._
-import fastparse.core.Logger
-import fastparse.utils.{IndexedParserInput, Utils}
+import scala.meta.internal.fastparse.core.Logger
+import scala.meta.internal.fastparse.utils.{IndexedParserInput, Utils}
 import utest._
 
 import scala.collection.mutable

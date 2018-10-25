@@ -1,11 +1,12 @@
-package fastparse
+package scala.meta.internal.fastparse
 import acyclic.file
-import fastparse.core.{ParserApi, ParserApiImpl}
+import scala.meta.internal.fastparse.core.{ParserApi, ParserApiImpl}
 
 import language.experimental.macros
-import fastparse.parsers.Intrinsics
-import fastparse.parsers.Terminals.AnyElems
-import fastparse.utils.ElemSetHelper.CharBitSetHelper
+import scala.meta.internal.fastparse.parsers.Intrinsics
+import scala.meta.internal.fastparse.parsers.Terminals.AnyElems
+import scala.meta.internal.fastparse.utils.ElemSetHelper.CharBitSetHelper
+import scala.meta.internal.fastparse
 
 
 class StringApi() extends Api[Char, String](

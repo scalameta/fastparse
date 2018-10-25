@@ -1,8 +1,8 @@
-package fastparse.byte
+package scala.meta.internal.fastparse.byte
 import acyclic.file
 import scodec.bits.ByteVector
-import fastparse.utils.Utils.IsReachable
-import fastparse.core.ParseCtx
+import scala.meta.internal.fastparse.utils.Utils.IsReachable
+import scala.meta.internal.fastparse.core.ParseCtx
 import scala.collection.mutable
 
 /**
