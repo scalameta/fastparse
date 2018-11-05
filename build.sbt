@@ -23,7 +23,7 @@ val shared = Seq(
     "com.lihaoyi" %%% "sourcecode" % "0.1.4"
   ),
   scalaJSStage in Global := FullOptStage,
-  organization := "com.geirsson",
+  organization := "org.scalameta",
   version := Constants.version,
   scalaVersion := Constants.scala212,
   crossScalaVersions := Seq(Constants.scala210, Constants.scala211, Constants.scala212),
