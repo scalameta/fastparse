@@ -148,7 +148,7 @@ object ByteTests extends TestSuite {
         val captureRep = P( BS(1).!.rep ~ BS(2) ~ End )
 
         val Parsed.Success(res4, 4) = captureRep.parse(hex"01 01 01 02")
-        assert(res4 == Seq(Bytes(1), Bytes(1), Bytes(1)))
+        assert(res4 == collection.Seq(Bytes(1), Bytes(1), Bytes(1)))
 
         val captureOpt = P( BS(1).rep ~ BS(2).!.? ~ End )
 
@@ -180,7 +180,7 @@ object ByteTests extends TestSuite {
         val captureRep = P( BS(1).!.rep ~ BS(2) ~ End )
 
         val captureRep(res4) = hex"01 01 01 02"
-        assert(res4 == Seq(Bytes(1), Bytes(1), Bytes(1)))
+        assert(res4 == collection.Seq(Bytes(1), Bytes(1), Bytes(1)))
 
         val captureOpt = P( BS(1).rep ~ BS(2).!.? ~ End )
 
@@ -211,9 +211,9 @@ object ByteTests extends TestSuite {
         val keyword = P( (BS(1, 2, 3) ~ &(BS(4))).!.rep )
 
         val Parsed.Success(res, _) = keyword.parse(hex"01 02 03 04")
-        assert(res == Seq(Bytes(1, 2, 3))
+        assert(res == collection.Seq(Bytes(1, 2, 3))
         )
-        val Parsed.Success(Seq(), __) = keyword.parse(hex"01 02 03 05")
+        val Parsed.Success(collection.Seq(), __) = keyword.parse(hex"01 02 03 05")
       }
 
       'neglookahead - {
@@ -248,7 +248,7 @@ object ByteTests extends TestSuite {
         val Parsed.Success(res, _) = nullTerminated .parse(
           hex"de ad be ef 00 13 37 00"
         )
-        assert(res == Seq(hex"de ad be ef", hex"13 37"))
+        assert(res == collection.Seq(hex"de ad be ef", hex"13 37"))
       }
 
       'flatMap - {
@@ -259,7 +259,7 @@ object ByteTests extends TestSuite {
         val Parsed.Success(res, _) = lengthPrefixed.parse(
           Bytes(0x04, 0xde, 0xad, 0xbe, 0xef, 0x02, 0x13, 0x37)
         )
-        assert(res == Seq(Bytes(0xde, 0xad, 0xbe, 0xef), Bytes(0x13, 0x37)))
+        assert(res == collection.Seq(Bytes(0xde, 0xad, 0xbe, 0xef), Bytes(0x13, 0x37)))
       }
 
 
@@ -271,7 +271,7 @@ object ByteTests extends TestSuite {
         val Parsed.Success(res, _) = nullTerminated.parse(
           hex"de ad be ef 00 13 37 00"
         )
-        assert(res == Seq(hex"de ad be ef", hex"13 37"))
+        assert(res == collection.Seq(hex"de ad be ef", hex"13 37"))
       }
 
       'bytesWhileIn - {
@@ -282,7 +282,7 @@ object ByteTests extends TestSuite {
         val Parsed.Success(res, _) = nullTerminated.parse(
           hex"de ad be ef 00 13 37 00"
         )
-        assert(res == Seq(hex"de ad be ef"))
+        assert(res == collection.Seq(hex"de ad be ef"))
       }
 
       'bytePred - {
@@ -293,7 +293,7 @@ object ByteTests extends TestSuite {
         val Parsed.Success(res, _) = nullTerminated.parse(
           Bytes(0xde, 0xad, 0xbe, 0xef, 0x00, 0x13, 0x37, 0x00)
         )
-        assert(res == Seq(Bytes(0xde, 0xad, 0xbe, 0xef), Bytes(0x13, 0x37)))
+        assert(res == collection.Seq(Bytes(0xde, 0xad, 0xbe, 0xef), Bytes(0x13, 0x37)))
       }
     }
 
@@ -495,7 +495,7 @@ object ByteTests extends TestSuite {
           "sells no more. Peter piper picked a pack of pickled peppers.":_*
         )
 
-        assert( prettyBytes(blob, markers = Seq(75, 100)) ==
+        assert( prettyBytes(blob, markers = collection.Seq(75, 100)) ==
           """       0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15
             |
             |0      54 68 65 20 71 75 69 63 6b 20 62 72 6f 77 6e 20
@@ -746,7 +746,7 @@ object ByteTests extends TestSuite {
 
       def check(inputHex: String,
                 expected: String,
-                markers: Seq[Int] = Seq(-1),
+                markers: collection.Seq[Int] = collection.Seq(-1),
                 contextRows: Int = 8) = {
         val pretty = fastparse.byte.all.prettyBytes(
           fastparse.byte.all.Bytes.fromHex(inputHex).get, markers, contextRows
@@ -795,7 +795,7 @@ object ByteTests extends TestSuite {
             |
             |0    00 01 01 00
             |     ^""".stripMargin,
-          markers = Seq(0)
+          markers = collection.Seq(0)
         )
         check(
           "00 01 01 00",
@@ -803,7 +803,7 @@ object ByteTests extends TestSuite {
             |
             |0    00 01 01 00
             |     ^  ^  ^""".stripMargin,
-          markers = Seq(0, 1, 2)
+          markers = collection.Seq(0, 1, 2)
         )
         check(
           "00 01 01 00",
@@ -811,7 +811,7 @@ object ByteTests extends TestSuite {
             |
             |0    00 01 01 00
             |              ^""".stripMargin,
-          markers = Seq(3)
+          markers = collection.Seq(3)
         )
       }
       'truncate - {
@@ -853,7 +853,7 @@ object ByteTests extends TestSuite {
             |240     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |256     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |        ...""".stripMargin,
-          markers = Seq(143)
+          markers = collection.Seq(143)
         )
         check(
           "00 " * 1000,
@@ -879,7 +879,7 @@ object ByteTests extends TestSuite {
             |256     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |272     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |        ...""".stripMargin,
-          markers = Seq(144)
+          markers = collection.Seq(144)
         )
         check(
           "00 " * 1000,
@@ -905,7 +905,7 @@ object ByteTests extends TestSuite {
             |608     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |624     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |        ...""".stripMargin,
-          markers = Seq(500)
+          markers = collection.Seq(500)
         )
 
         check(
@@ -939,7 +939,7 @@ object ByteTests extends TestSuite {
             |608     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |624     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |        ...""".stripMargin,
-          markers = Seq(400, 500)
+          markers = collection.Seq(400, 500)
         )
         check(
           "00 " * 1000,
@@ -956,7 +956,7 @@ object ByteTests extends TestSuite {
             |                    ^
             |512     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |        ...""".stripMargin,
-          markers = Seq(400, 500),
+          markers = collection.Seq(400, 500),
           contextRows = 1
         )
         check(
@@ -974,7 +974,7 @@ object ByteTests extends TestSuite {
             |976     00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
             |992     00 00 00 00 00 00 00 00
             |                             ^""".stripMargin,
-          markers = Seq(999)
+          markers = collection.Seq(999)
         )
       }
 
@@ -1001,7 +1001,7 @@ object ByteTests extends TestSuite {
             if (firstValue == None) firstValue = Some(i)
             lastValue = Some(i)
             count += 1
-            val cases = Seq(
+            val cases = collection.Seq(
               ByteOrder.BIG_ENDIAN -> beParser,
               ByteOrder.LITTLE_ENDIAN -> leParser
             )

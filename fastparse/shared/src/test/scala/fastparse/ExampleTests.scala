@@ -117,7 +117,7 @@ object ExampleTests extends TestSuite{
 
         val captureRep = P( "a".!.rep ~ "b" ~ End)
 
-        val Parsed.Success(Seq("a", "a", "a"), 4) = captureRep.parse("aaab")
+        val Parsed.Success(collection.Seq("a", "a", "a"), 4) = captureRep.parse("aaab")
 
         val captureOpt = P( "a".rep ~ "b".!.? ~ End)
 
@@ -138,7 +138,7 @@ object ExampleTests extends TestSuite{
 
         val captureRep = P( "a".!.rep ~ "b" ~ End)
 
-        val captureRep(Seq("a", "a", "a")) = "aaab"
+        val captureRep(collection.Seq("a", "a", "a")) = "aaab"
 
         val captureOpt = P( "a".rep ~ "b".!.? ~ End)
 
@@ -157,8 +157,8 @@ object ExampleTests extends TestSuite{
       'lookahead - {
         val keyword = P( ("hello" ~ &(" ")).!.rep )
 
-        val Parsed.Success(Seq("hello"), _) = keyword.parse("hello ")
-        val Parsed.Success(Seq(), __) = keyword.parse("helloX")
+        val Parsed.Success(collection.Seq("hello"), _) = keyword.parse("hello ")
+        val Parsed.Success(collection.Seq(), __) = keyword.parse("helloX")
       }
       'neglookahead - {
         val keyword = P( "hello" ~ !" " ~ AnyChar ~ "world" ).!
@@ -285,8 +285,8 @@ object ExampleTests extends TestSuite{
       'stringIn - {
         val si = P( StringIn("cow", "cattle").!.rep )
 
-        val Parsed.Success(Seq("cow", "cattle"), _) = si.parse("cowcattle")
-        val Parsed.Success(Seq("cow"), _) = si.parse("cowmoo")
+        val Parsed.Success(collection.Seq("cow", "cattle"), _) = si.parse("cowcattle")
+        val Parsed.Success(collection.Seq("cow"), _) = si.parse("cowmoo")
       }
     }
     'cuts - {
@@ -321,8 +321,8 @@ object ExampleTests extends TestSuite{
         val stmt = P( "val " ~ alpha.rep(1).! ~ ";" ~ " ".rep )
         val stmts = P( stmt.rep(1) ~ End )
 
-        val Parsed.Success(Seq("abcd"), _) = stmts.parse("val abcd;")
-        val Parsed.Success(Seq("abcd", "efg"), _) = stmts.parse("val abcd; val efg;")
+        val Parsed.Success(collection.Seq("abcd"), _) = stmts.parse("val abcd;")
+        val Parsed.Success(collection.Seq("abcd", "efg"), _) = stmts.parse("val abcd; val efg;")
 
         val failure = stmts.parse("val abcd; val ").asInstanceOf[Parsed.Failure]
         assert(
@@ -335,8 +335,8 @@ object ExampleTests extends TestSuite{
         val stmt = P( "val " ~/ alpha.rep(1).! ~ ";" ~ " ".rep )
         val stmts = P( stmt.rep(1) ~ End )
 
-        val Parsed.Success(Seq("abcd"), _) = stmts.parse("val abcd;")
-        val Parsed.Success(Seq("abcd", "efg"), _) = stmts.parse("val abcd; val efg;")
+        val Parsed.Success(collection.Seq("abcd"), _) = stmts.parse("val abcd;")
+        val Parsed.Success(collection.Seq("abcd", "efg"), _) = stmts.parse("val abcd; val efg;")
 
         val failure = stmts.parse("val abcd; val ").asInstanceOf[Parsed.Failure]
         assert(
@@ -349,7 +349,7 @@ object ExampleTests extends TestSuite{
         val digits = P( CharIn('0' to '9').rep(1) )
         val tuple = P( "(" ~ digits.!.rep(sep=",") ~ ")" )
 
-        val Parsed.Success(Seq("1", "23"), _) = tuple.parse("(1,23)")
+        val Parsed.Success(collection.Seq("1", "23"), _) = tuple.parse("(1,23)")
 
         val failure = tuple.parse("(1,)").asInstanceOf[Parsed.Failure]
         assert(
@@ -361,7 +361,7 @@ object ExampleTests extends TestSuite{
         val digits = P( CharIn('0' to '9').rep(1) )
         val tuple = P( "(" ~ digits.!.rep(sep="," ~/ Pass) ~ ")" )
 
-        val Parsed.Success(Seq("1", "23"), _) = tuple.parse("(1,23)")
+        val Parsed.Success(collection.Seq("1", "23"), _) = tuple.parse("(1,23)")
 
         val failure = tuple.parse("(1,)").asInstanceOf[Parsed.Failure]
         assert(
@@ -373,7 +373,7 @@ object ExampleTests extends TestSuite{
         val digits = P( CharIn('0' to '9').rep(1) )
         val tuple = P( "(" ~ digits.!.rep(sep=",".~/) ~ ")" )
 
-        val Parsed.Success(Seq("1", "23"), _) = tuple.parse("(1,23)")
+        val Parsed.Success(collection.Seq("1", "23"), _) = tuple.parse("(1,23)")
 
         val failure = tuple.parse("(1,)").asInstanceOf[Parsed.Failure]
         val trace = failure.extra.traced.trace

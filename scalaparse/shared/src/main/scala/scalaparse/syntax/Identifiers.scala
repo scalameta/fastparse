@@ -37,7 +37,7 @@ object Identifiers{
     P( IdUnderscoreChunk.rep ~ (CharsWhileIn("_") ~ CharsWhile(isOpChar, min = 0)).? )
   }
 
-  val alphaKeywords = Seq(
+  val alphaKeywords = collection.Seq(
     "abstract", "case", "catch", "class", "def", "do", "else",
     "extends", "false", "finally", "final", "finally", "forSome",
     "for", "if", "implicit", "import", "lazy", "match", "new",
@@ -49,7 +49,7 @@ object Identifiers{
   val AlphabetKeywords = P {
     StringIn(alphaKeywords:_*) ~ !Letter
   }
-  val symbolKeywords = Seq(
+  val symbolKeywords = collection.Seq(
     ":", ";", "=>", "=", "<-", "<:", "<%", ">:", "#", "@", "\u21d2", "\u2190"
   )
 

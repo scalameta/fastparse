@@ -42,14 +42,14 @@ object Intrinsics {
     override def toString = s"$name($predicate)"
   }
 
-  def flattenStringsGen[Elem](items: Seq[Seq[Elem]]) = {
+  def flattenStringsGen[Elem](items: collection.Seq[collection.Seq[Elem]]) = {
     new Generator.Iter(items.iterator.map(_.iterator).flatten)
   }
   /**
    * Parses a single character if its contained in the lists of allowed characters
    */
   case class ElemIn[Elem, Repr](name: String,
-                                strings: Seq[Seq[Elem]])
+                                strings: collection.Seq[collection.Seq[Elem]])
                                (implicit repr: ReprOps[Elem, Repr],
                                 ehelper: ElemSetHelper[Elem])
       extends ElemSet[Elem, Repr](Left(flattenStringsGen(strings))){
@@ -61,7 +61,7 @@ object Intrinsics {
     * [[strings]]
     */
   case class ElemsWhileIn[Elem, Repr](name: String,
-                                      strings: Seq[Seq[Elem]],
+                                      strings: collection.Seq[collection.Seq[Elem]],
                                       min: Int = 1)
                                      (implicit helper: ElemSetHelper[Elem],
                                       repr: ReprOps[Elem, Repr])
@@ -127,7 +127,7 @@ object Intrinsics {
 
 
   def prettyPrintStrings[Elem, Repr](name: String,
-                                     strings: Seq[Seq[Elem]])
+                                     strings: collection.Seq[collection.Seq[Elem]])
                                     (implicit repr: ReprOps[Elem, Repr]) = {
 
     s"$name(${repr.literalize(repr.flatten(strings.map(repr.fromSeq)))})"

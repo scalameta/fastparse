@@ -1,7 +1,7 @@
 package scala.meta.internal.fastparse.byte
 import scala.meta.internal.fastparse.byte.all._
 import BE._
-case class Midi(format: Int, tickDiv: Midi.TickDiv, tracks: Seq[Seq[(Int, Midi.TrackEvent)]])
+case class Midi(format: Int, tickDiv: Midi.TickDiv, tracks: collection.Seq[collection.Seq[(Int, Midi.TrackEvent)]])
 object Midi{
   sealed trait TickDiv
   object TickDiv {
@@ -78,7 +78,7 @@ object MidiParse{
   val varString = varBytes.map(x => new String(x.toArray))
 
 
-  val midiEvent: P[(MidiEvent, Seq[(Int, MidiEvent)])] = {
+  val midiEvent: P[(MidiEvent, collection.Seq[(Int, MidiEvent)])] = {
     val posInt8 = Int8.filter(_>=0)
     val NoteOff = (posInt8 ~ posInt8).map(MidiData.NoteOff.tupled)
     val NoteOn = (posInt8 ~ posInt8).map{
@@ -168,7 +168,7 @@ object MidiParse{
 
   val sysexEvent = P( varBytes.map(SysExEvent.Message) )
 
-  val trackEvent: P[(TrackEvent, Seq[(Int, TrackEvent)])] = {
+  val trackEvent: P[(TrackEvent, collection.Seq[(Int, TrackEvent)])] = {
     P( BS(0xFF)  ~/ metaEvent.map(_ -> Nil) | BS(0xF0) ~/ sysexEvent.map(_ -> Nil) | midiEvent )
   }
 
@@ -178,7 +178,7 @@ object MidiParse{
     case (time, (event, rest)) => (time, event) +: rest
   }
   val trackHeader = P( BS(hex"4d 54 72 6b") ~/ Int32 )
-  val trackChunk: P[Seq[(Int, TrackEvent)]] = {
+  val trackChunk: P[collection.Seq[(Int, TrackEvent)]] = {
     P( trackHeader ~ trackItem.rep() ~ trackItemEnd ).map{
       case (length, events, last) => events.flatten :+ last
     }

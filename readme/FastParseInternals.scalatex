@@ -34,7 +34,7 @@
 
     @sect{Internal Optimizations}
         @p
-            FastParse does some things that take advantage of the type-directed nature of the result-aggregation: while @hl.scala{Parser[T].rep} returns a @hl.scala{Parser[Seq[T]]} for an arbitrary @hl.scala{T}, there is a short circuit such that @hl.scala{Parser[Unit].rep} simple returns @hl.scala{Parser[Unit]}. This lets the common case of "parsing things, not caring about the result" avoid the allocation, while still allowing you to stick some other type in there (e.g. @hl.scala{Any}) if you really do care about the bucket-of-@hl.scala{Unit}s.
+            FastParse does some things that take advantage of the type-directed nature of the result-aggregation: while @hl.scala{Parser[T].rep} returns a @hl.scala{Parser[collection.Seq[T]]} for an arbitrary @hl.scala{T}, there is a short circuit such that @hl.scala{Parser[Unit].rep} simple returns @hl.scala{Parser[Unit]}. This lets the common case of "parsing things, not caring about the result" avoid the allocation, while still allowing you to stick some other type in there (e.g. @hl.scala{Any}) if you really do care about the bucket-of-@hl.scala{Unit}s.
 
         @p
             FastParse also takes advantage of the fact that @hl.scala{Parser}s are immutable. That makes it feasible to make instantiation mildly-expensive, since each one only gets instantiated once rather than per-parse. As an example, @sect.ref{CharIn}, @sect.ref{CharPred} and @sect.ref{CharsWhile} all have their predicate converted to an identical bit-set to make character lookups extremely fast. Similarly, @sect.ref{StringIn} gets converted into a Trie in order to allow one-pass matching of dozens of strings at the same time.

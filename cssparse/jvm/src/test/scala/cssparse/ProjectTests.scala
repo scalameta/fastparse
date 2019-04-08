@@ -15,7 +15,7 @@ object ProjectTests extends TestSuite {
     println(Paths.get("target", "files", name))
     if (!Files.exists(Paths.get("target", "files", name))){
       println("DOWNLOADING")
-      Seq("wget", url, "-O", "target/files/" + name).!
+      collection.Seq("wget", url, "-O", "target/files/" + name).!
     }
     val css = new String(
       java.nio.file.Files.readAllBytes(
@@ -27,7 +27,7 @@ object ProjectTests extends TestSuite {
   }
 
   val tests = this {
-    Seq("mkdir", "-p", "target/files").!
+    collection.Seq("mkdir", "-p", "target/files").!
 
     "twbs/bootstrap/raw/2c2ac3356425e192f7537227508c809a14aa5850/dist/css/bootstrap.css" - checkCss()
     "twbs/bootstrap/raw/2c2ac3356425e192f7537227508c809a14aa5850/dist/css/bootstrap.min.css" - checkCss()

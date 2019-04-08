@@ -15,7 +15,7 @@ object MidiTests extends TestSuite{
   def variousParses(bytes: Bytes) = {
     val stringParse = MidiParse.midiParser.parse(bytes).get.value
     val iteratorParses =
-      for(i <- Seq(1, 4, 16, 64, 256, 1024))
+      for(i <- collection.Seq(1, 4, 16, 64, 256, 1024))
       yield MidiParse.midiParser.parseIterator(bytes.toArray.grouped(i).map(Bytes.view)).get.value
 
     stringParse +: iteratorParses
@@ -27,7 +27,7 @@ object MidiTests extends TestSuite{
       val bytes = readResourceBytes("/canon.mid")
       for(parsed <- variousParses(bytes)){
         println(parsed.tracks.map(_.length))
-        val expectedTrack0 = Seq(
+        val expectedTrack0 = collection.Seq(
           (0, MetaEvent.TimeSignature(4, 2, 24, 8)),
           (0, MetaEvent.KeySignature(0, false)),
           (0, MetaEvent.TimeSignature(4, 2, 24, 8)),
@@ -53,7 +53,7 @@ object MidiTests extends TestSuite{
       val bytes = readResourceBytes("/ctend.mid")
       for(parsed <- variousParses(bytes)){
 
-        val expectedTrack0 = Seq(
+        val expectedTrack0 = collection.Seq(
           (0, MetaEvent.TimeSignature(1,2,24,8)),
           (0, MetaEvent.KeySignature(7,false)),
           (0, MetaEvent.Tempo(495867)),
@@ -83,7 +83,7 @@ object MidiTests extends TestSuite{
           parsed.format == 1,
           parsed.tickDiv == Midi.TickDiv.Metric(352),
           parsed.tracks.length == 2,
-          parsed.tracks.map(_.length) == Seq(1514, 894)
+          parsed.tracks.map(_.length) == collection.Seq(1514, 894)
         )
       }
     }

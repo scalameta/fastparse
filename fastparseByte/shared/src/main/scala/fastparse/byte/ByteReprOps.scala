@@ -21,7 +21,7 @@ object ByteReprOps extends ReprOps[Byte, ByteVector] {
   private[this] type Bytes = ByteVector
   def fromArray(input: Array[Byte]) = ByteVector(input:_*)
   def toArray(input: ByteVector) = input.toArray
-  def fromSeq(input: Seq[Byte]) = ByteVector(input:_*)
+  def fromSeq(input: collection.Seq[Byte]) = ByteVector(input:_*)
 
   private def ByteToHex(b: Byte) = {
     def singleHexChar(b: Int) = b match{
@@ -72,7 +72,7 @@ object ByteReprOps extends ReprOps[Byte, ByteVector] {
 
   def fromSingle(input: Byte) = ByteVector(input)
 
-  def flatten(input: Seq[Bytes]): Bytes = {
+  def flatten(input: collection.Seq[Bytes]): Bytes = {
     var current = ByteVector.empty
     for(i <- input) current = current ++ i
     current

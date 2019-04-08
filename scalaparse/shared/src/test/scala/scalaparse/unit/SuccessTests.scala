@@ -709,7 +709,7 @@ object SuccessTests extends TestSuite{
     * - check(
       """
         |object ScopedVar {
-        |  def withScopedVars(ass: Seq[_]) = 1
+        |  def withScopedVars(ass: collection.Seq[_]) = 1
         |}
         |
       """.stripMargin
@@ -1279,7 +1279,7 @@ object SuccessTests extends TestSuite{
     val d4 = "dca5"
     * - check(
       s"""object U{
-        |  Seq(
+        |  collection.Seq(
         |    "$slash$u$d1",
         |    "$slash$u$d2"
         |  )

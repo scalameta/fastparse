@@ -217,7 +217,7 @@ object CodeParser {
   case class LDCW(index: Int) extends OpCode
   case class LDC2W(index: Int) extends OpCode
 
-  case class LookUpSwitch(defaultOffset: Int, pairs: Seq[(Int, Int)]) extends OpCode
+  case class LookUpSwitch(defaultOffset: Int, pairs: collection.Seq[(Int, Int)]) extends OpCode
 
   case object MonitorEnter extends OpCode
   case object MonitorExit extends OpCode
@@ -239,7 +239,7 @@ object CodeParser {
   case object SAStore extends OpCode
   case class SIPush(short: Short) extends OpCode
 
-  case class TableSwitch(defaultOffset: Int, low: Int, high: Int, offsets: Seq[Int]) extends OpCode
+  case class TableSwitch(defaultOffset: Int, low: Int, high: Int, offsets: collection.Seq[Int]) extends OpCode
 
   case object Wide extends OpCode // correct behavior for this command hasn't been implemented yet
 
@@ -489,13 +489,13 @@ object CodeParser {
                 Int32.rep(exactly=high - low + 1).map(offs => (low, high, offs))
             }
          ).map {
-            case (defaultOffset: Int, (low: Int, high: Int, offs: Seq[Int])) =>
+            case (defaultOffset: Int, (low: Int, high: Int, offs: collection.Seq[Int])) =>
               TableSwitch(defaultOffset, low, high, offs)
           }
     )
   }
 
-  def parseCode(code: Bytes): Seq[OpCode] = {
+  def parseCode(code: Bytes): collection.Seq[OpCode] = {
     val opCodes =
       P( (AnyByte.! ~ Index).flatMap {
           case (bs: Bytes, idx: Int) => (bs(0) & 0xff) match {
@@ -507,7 +507,7 @@ object CodeParser {
 
     opCodes.parse(code) match {
       case Parsed.Success(res, _) => res
-      case f: Parsed.Failure => Seq()
+      case f: Parsed.Failure => collection.Seq()
     }
   }
 }

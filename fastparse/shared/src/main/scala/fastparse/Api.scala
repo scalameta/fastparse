@@ -79,8 +79,8 @@ abstract class Api[Elem, Repr](ct: ClassTag[Elem],
   }
   val ElemsWhile: ElemsWhile
 
-  def ElemIn(seqs: Seq[Elem]*): P0
-  def ElemsWhileIn(seqs: Seq[Elem], min: Int = 1): P0
+  def ElemIn(seqs: collection.Seq[Elem]*): P0
+  def ElemsWhileIn(seqs: collection.Seq[Elem], min: Int = 1): P0
 
   def SeqIn(seqs: Repr*) = Intrinsics.StringIn[Elem, Repr](seqs: _*)
 

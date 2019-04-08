@@ -51,16 +51,16 @@ object ClassParse {
     case class AttributeInfo(nameIndex: Int, info: Bytes)
 
     case class FieldInfo(accessFlags: Bytes, nameIndex: Int,
-                         descriptorIndex: Int, attributes: Seq[AttributeInfo])
+                         descriptorIndex: Int, attributes: collection.Seq[AttributeInfo])
 
     case class MethodInfo(accessFlags: Bytes, nameIndex: Int,
-                          descriptorIndex: Int, attributes: Seq[AttributeInfo])
+                          descriptorIndex: Int, attributes: collection.Seq[AttributeInfo])
 
     case class ClassFileInfo(minorVersion: Int, majorVersion: Int,
-                             pool: Seq[PoolInfo], accessFlags: Bytes,
+                             pool: collection.Seq[PoolInfo], accessFlags: Bytes,
                              thisClassIndex: Int, superClassIndex: Int,
-                             interfacesIndexes: Seq[Int], fields: Seq[FieldInfo],
-                             methods: Seq[MethodInfo], attributes: Seq[AttributeInfo]) {
+                             interfacesIndexes: collection.Seq[Int], fields: collection.Seq[FieldInfo],
+                             methods: collection.Seq[MethodInfo], attributes: collection.Seq[AttributeInfo]) {
 
       def getInfoByIndex[T](idx: Int): Option[T] = {
         if (idx > pool.length || idx <= 0) {
@@ -265,15 +265,15 @@ object ClassParse {
       def apply(fs: Bytes) = new ClassFlags(fs)
     }
 
-    case class Field(name: String, descriptor: String, flags: FieldFlags, attributes: Seq[Attribute])
+    case class Field(name: String, descriptor: String, flags: FieldFlags, attributes: collection.Seq[Attribute])
 
-    case class Method(name: String, descriptor: String, flags: MethodFlags, attributes: Seq[Attribute])
+    case class Method(name: String, descriptor: String, flags: MethodFlags, attributes: collection.Seq[Attribute])
 
     case class ClassFile(minorVersion: Int,       majorVersion: Int,
-                         accessFlags: ClassFlags, pool: Seq[PoolItem],
+                         accessFlags: ClassFlags, pool: collection.Seq[PoolItem],
                          thisClass: Class,        superClass: Option[Class],
-                         interfaces: Seq[Class],  fields: Seq[Field],
-                         methods: Seq[Method],    attributes: Seq[Attribute])
+                         interfaces: collection.Seq[Class],  fields: collection.Seq[Field],
+                         methods: collection.Seq[Method],    attributes: collection.Seq[Attribute])
 
     def convertToPoolItem(classInfo: Info.ClassFileInfo, info: PoolInfo): PoolItem = {
       info match {
@@ -411,7 +411,7 @@ object ClassParse {
 
   val doubleConstantPoolItem = P( constantDoubleInfo | constantLongInfo)
 
-  def constantPool(count: Int): P[Seq[PoolInfo]] =
+  def constantPool(count: Int): P[collection.Seq[PoolInfo]] =
     if (count == 0) {
       Pass.map(_ => ArrayBuffer[PoolInfo]())
     } else {

@@ -17,19 +17,19 @@ class Statements(indent: Int){
   val NEWLINE: P0 = P( "\n" | End )
   val ENDMARKER: P0 = P( End )
 
-  val single_input: P[Seq[Ast.stmt]] = P(
+  val single_input: P[collection.Seq[Ast.stmt]] = P(
     NEWLINE.map(_ => Nil) |
     simple_stmt |
-    compound_stmt.map(Seq(_)) ~ NEWLINE
+    compound_stmt.map(collection.Seq(_)) ~ NEWLINE
   )
 
   val indents = P( "\n" ~~ " ".repX(indent) )
 
   val spaces = P( (Lexical.nonewlinewscomment.? ~~ "\n").repX(1) )
-  val file_input: P[Seq[Ast.stmt]] = P( spaces.? ~ stmt.repX(0, spaces) ~ spaces.? ).map(_.flatten)
+  val file_input: P[collection.Seq[Ast.stmt]] = P( spaces.? ~ stmt.repX(0, spaces) ~ spaces.? ).map(_.flatten)
   val eval_input: P[Ast.expr] = P( testlist ~ NEWLINE.rep ~ ENDMARKER ).map(tuplize)
 
-  def collapse_dotted_name(name: Seq[Ast.identifier]): Ast.expr = {
+  def collapse_dotted_name(name: collection.Seq[Ast.identifier]): Ast.expr = {
     name.tail.foldLeft[Ast.expr](Ast.expr.Name(name.head, Ast.expr_context.Load))(
       (x, y) => Ast.expr.Attribute(x, y, Ast.expr_context.Load)
     )
@@ -44,20 +44,20 @@ class Statements(indent: Int){
 
   val decorators = P( decorator.rep )
   val decorated: P[Ast.stmt] = P( decorators ~ (classdef | funcdef) ).map{case (a, b) => b(a)}
-  val classdef: P[Seq[Ast.expr] => Ast.stmt.ClassDef] =
+  val classdef: P[collection.Seq[Ast.expr] => Ast.stmt.ClassDef] =
     P( kw("class") ~/ NAME ~ ("(" ~ testlist.? ~ ")").?.map(_.toSeq.flatten.flatten) ~ ":" ~~ suite ).map{
       case (a, b, c) => Ast.stmt.ClassDef(a, b, c, _)
     }
 
 
-  val funcdef: P[Seq[Ast.expr] => Ast.stmt.FunctionDef] = P( kw("def") ~/ NAME ~ parameters ~ ":" ~~ suite ).map{
+  val funcdef: P[collection.Seq[Ast.expr] => Ast.stmt.FunctionDef] = P( kw("def") ~/ NAME ~ parameters ~ ":" ~~ suite ).map{
     case (name, args, suite) => Ast.stmt.FunctionDef(name, args, suite, _)
   }
   val parameters: P[Ast.arguments] = P( "(" ~ varargslist ~ ")" )
 
-  val stmt: P[Seq[Ast.stmt]] = P( compound_stmt.map(Seq(_)) | simple_stmt )
+  val stmt: P[collection.Seq[Ast.stmt]] = P( compound_stmt.map(collection.Seq(_)) | simple_stmt )
 
-  val simple_stmt: P[Seq[Ast.stmt]] = P( small_stmt.rep(1, sep = ";") ~ ";".? )
+  val simple_stmt: P[collection.Seq[Ast.stmt]] = P( small_stmt.rep(1, sep = ";") ~ ";".? )
   val small_stmt: P[Ast.stmt] = P(
     print_stmt  | del_stmt | pass_stmt | flow_stmt |
     import_stmt | global_stmt | exec_stmt | assert_stmt | expr_stmt
@@ -70,7 +70,7 @@ class Statements(indent: Int){
       aug.map{case (a, b, c) => Ast.stmt.AugAssign(tuplize(a), b, c) } |
       assign.map{
         case (a, Nil) => Ast.stmt.Expr(tuplize(a))
-        case (a, b) => Ast.stmt.Assign(Seq(tuplize(a)) ++ b.init, b.last)
+        case (a, b) => Ast.stmt.Assign(collection.Seq(tuplize(a)) ++ b.init, b.last)
       }
     )
   }
@@ -109,7 +109,7 @@ class Statements(indent: Int){
   val import_from: P[Ast.stmt.ImportFrom] = {
     val named = P( ".".rep(1).!.? ~ dotted_name.!.map(Some(_)) )
     val unNamed = P( ".".rep(1).!.map(x => (Some(x), None)) )
-    val star = P( "*".!.map(_ => Seq(Ast.alias(Ast.identifier("*"), None))) )
+    val star = P( "*".!.map(_ => collection.Seq(Ast.alias(Ast.identifier("*"), None))) )
     P( kw("from") ~ (named | unNamed) ~ kw("import") ~ (star | "(" ~ import_as_names ~ ")" | import_as_names) ).map{
       case (dots, module, names) => Ast.stmt.ImportFrom(module.map(Ast.identifier), names, dots.map(_.length))
     }
@@ -137,7 +137,7 @@ class Statements(indent: Int){
         val (init :+ last) = (test, body) +: elifs
         val (last_test, last_body) = last
         init.foldRight(Ast.stmt.If(last_test, last_body, orelse.toSeq.flatten)){
-          case ((test, body), rhs) => Ast.stmt.If(test, body, Seq(rhs))
+          case ((test, body), rhs) => Ast.stmt.If(test, body, collection.Seq(rhs))
         }
     }
   }
@@ -149,7 +149,7 @@ class Statements(indent: Int){
   }
   val try_stmt: P[Ast.stmt]= {
     val `try` = P( kw("try") ~/ ":" ~~ suite )
-    val excepts: P[Seq[Ast.excepthandler]] = P( (except_clause ~ ":" ~~ suite).map{
+    val excepts: P[collection.Seq[Ast.excepthandler]] = P( (except_clause ~ ":" ~~ suite).map{
       case (None, body) => Ast.excepthandler.ExceptHandler(None, None, body)
       case (Some((x, None)), body) => Ast.excepthandler.ExceptHandler(Some(x), None, body)
       case (Some((x, Some(y))), body) => Ast.excepthandler.ExceptHandler(Some(x), Some(y), body)
@@ -163,7 +163,7 @@ class Statements(indent: Int){
         Ast.stmt.TryFinally(tryBlock, finallyBlock)
       case (tryBlock, excepts, elseBlock, Some(finallyBlock)) =>
         Ast.stmt.TryFinally(
-          Seq(Ast.stmt.TryExcept(tryBlock, excepts, elseBlock.toSeq.flatten)),
+          collection.Seq(Ast.stmt.TryExcept(tryBlock, excepts, elseBlock.toSeq.flatten)),
           finallyBlock
         )
     }
@@ -173,7 +173,7 @@ class Statements(indent: Int){
       val (last_expr, last_vars) = items.last
       val inner = Ast.stmt.With(last_expr, last_vars, body)
       items.init.foldRight(inner){
-        case ((expr, vars), body) => Ast.stmt.With(expr, vars, Seq(body))
+        case ((expr, vars), body) => Ast.stmt.With(expr, vars, collection.Seq(body))
       }
   }
   val with_item: P[(Ast.expr, Option[Ast.expr])] = P( test ~ (kw("as") ~ expr).? )
@@ -181,7 +181,7 @@ class Statements(indent: Int){
   val except_clause = P( space_indents ~ kw("except") ~/ (test ~ ((kw("as") | ",") ~ test).?).? )
 
 
-  val suite: P[Seq[Ast.stmt]] = {
+  val suite: P[collection.Seq[Ast.stmt]] = {
     val deeper: P[Int] = {
       val commentLine = P("\n" ~~ Lexical.nonewlinewscomment.?.map(_ => 0)).map((_, Some("")))
       val endLine = P("\n" ~~ (" "|"\t").repX(indent + 1).!.map(_.length) ~~ Lexical.comment.!.? )

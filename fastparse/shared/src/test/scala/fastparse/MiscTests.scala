@@ -63,7 +63,7 @@ object MiscTests extends TestSuite{
         check(Pass, """Pass""")
         check(Fail, """Fail""")
         check(AnyChar, """AnyChar""")
-        check(CharIn("abc", "d", Seq('1', '2', '3')), """CharIn("abcd123")""")
+        check(CharIn("abc", "d", collection.Seq('1', '2', '3')), """CharIn("abcd123")""")
         check(
           StringIn("mango", "mandarin", "mangosteen"),
           """StringIn("mango", "mandarin", "mangosteen")"""

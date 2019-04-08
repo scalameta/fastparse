@@ -19,7 +19,7 @@
         @p
             These are defined as:
 
-        @hl.ref(main/'core/"Parsing.scala", Seq("// Parser", "/*"), "// End Parser")
+        @hl.ref(main/'core/"Parsing.scala", collection.Seq("// Parser", "/*"), "// End Parser")
 
         @p
             Typically, you will be dealing with the aliased version of
@@ -100,8 +100,8 @@
         @p
             An overview of @hl.scala{Parsed}:
 
-        @hl.ref(main/'core/"Parsing.scala", Seq("object Parsed", "/*"), "/*")
-        @hl.ref(main/'core/"Parsing.scala", Seq("case class Success", "/*"), "object Failure")
+        @hl.ref(main/'core/"Parsing.scala", collection.Seq("object Parsed", "/*"), "/*")
+        @hl.ref(main/'core/"Parsing.scala", collection.Seq("case class Success", "/*"), "object Failure")
 
         @p
             Note how @hl.scala{Failure} only contains the parser which failed and a single index where the parse failed.
@@ -110,7 +110,7 @@
             provides valuable information: It performs a whole new parse on the input data with additional instrumentation,
             and provides additional insight into why the parse failed:
 
-        @hl.ref(main/'core/"Parsing.scala", Seq("// TracedFailure", "/*"), "object TracedFailure")
+        @hl.ref(main/'core/"Parsing.scala", collection.Seq("// TracedFailure", "/*"), "object TracedFailure")
         @p
             Computing the @hl.scala{Extra.traced} data is not done by default for performance reasons:
             the additional run takes about 3x longer than the initial run due to the instrumentation,

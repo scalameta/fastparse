@@ -29,7 +29,7 @@
     @p
         Let's take an example Parser:
 
-    @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "object Foo"), "check")
+    @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "object Foo"), "check")
 
     @p
         This is a simple parser that parses some basic arithmetic expressions: @hl.scala{1+2}, @hl.scala{(1+2)+(3+4)}, etc. It's simpler than @sect.ref{Math} parser shown at the top of the page, as it does not handle multiple operators in a row e.g. @hl.scala{1+2+3+4}, nor does it handle operator precedence. Nevertheless it will be enough to show how error handling and debugging works.
@@ -38,7 +38,7 @@
         If we run the parser on a bad input, though, we get this:
 
 
-    @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "original", "object Foo", "check", ""))
+    @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "original", "object Foo", "check", ""))
 
     @p
         As you can see, the error message is pretty generic: "i tried to parse @hl.scala{"(" ~ expr ~ ")"} or a @hl.scala{num} at index @hl.scala{0}". Why does it tell us that?
@@ -49,26 +49,26 @@
         @p
             Although FastParse doesn't know which branch was meant to succeed, @i{we} know that once we've parsed a @hl.scala{"("}, it can no longer parse a number! Thus there's no point in backtracking and trying that side of the @hl.scala{|}. We can tell FastParse this fact by adding @sect.ref{Cuts} @hl.scala{~/} after @hl.scala{"("}
 
-        @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "cuts", "object Foo"), "check")
+        @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "cuts", "object Foo"), "check")
         @p
             Now, once FastParse sees a @hl.scala{"("}, it can no longer backtrack! Thus it knows that whatever error occurs later, it @i{must} be because it failed to parse a @hl.scala{")"} and not because @hl.scala{num} failed. Then the error message becomes much more precise and useful:
-        @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "cut", "object Foo", "check", ""))
+        @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "cut", "object Foo", "check", ""))
 
 
     @sect{Using Log}
         @p
             We can add @sect.ref{Log} calls to make FastParse tell us a lot more about what a parser is doing. For example, if we want to know whenever a @hl.scala{side} or @hl.scala{expr} is being attempted, we can add @hl.scala{.log()} to those to parsers to find out:
-        @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "log", "object Foo"), "Foo.expr.parse")
+        @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "log", "object Foo"), "Foo.expr.parse")
 
         @p
             Then when you run it on an invalid input:
 
-        @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "log", "object Foo", "Foo.expr.parse"), "")
+        @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "log", "object Foo", "Foo.expr.parse"), "")
 
         @p
             You get a dump of everything the logged parsers are trying to do
 
-        @hl.ref(tests/"ExampleTests.scala", Seq("'debugging", "log", "val expected", ""), "\"\"\"")
+        @hl.ref(tests/"ExampleTests.scala", collection.Seq("'debugging", "log", "val expected", ""), "\"\"\"")
 
 
         @p
@@ -151,7 +151,7 @@
             to count how many times each parser in the example @sect.ref{Math}
             parser gets called when you parse a simple arithmetic expression:
 
-        @hl.ref(tests/"MathTests.scala", Seq("'instrument", "simple", ""))
+        @hl.ref(tests/"MathTests.scala", collection.Seq("'instrument", "simple", ""))
 
         @p
             This is useful as FastParse isn't really profile-able by "normal"
@@ -170,7 +170,7 @@
             use to run the current parser and run code @i{after} the parser is
             run:
 
-        @hl.ref(tests/"MathTests.scala", Seq("'instrument", "'continuation", ""), "// Good Parse")
+        @hl.ref(tests/"MathTests.scala", collection.Seq("'instrument", "'continuation", ""), "// Good Parse")
 
         @p
             In this case, we are using it to count not just how many times each
@@ -178,13 +178,13 @@
             succeeds and fails. We can parse a "good" input and see that
             most of the attempts by named parser succeed:
 
-        @hl.ref(tests/"MathTests.scala", Seq("'instrument", "'continuation", "", "// Good Parse"), "// Bad Parse")
+        @hl.ref(tests/"MathTests.scala", collection.Seq("'instrument", "'continuation", "", "// Good Parse"), "// Bad Parse")
 
         @p
             And we can parse invalid input, and see that it results in many of
             the named parsers failing repeatedly in the course of the parse:
 
-        @hl.ref(tests/"MathTests.scala", Seq("'instrument", "'continuation", "", "// Bad Parse"))
+        @hl.ref(tests/"MathTests.scala", collection.Seq("'instrument", "'continuation", "", "// Bad Parse"))
 
         @p
             Which is what you would expect, since the parse overall failed!

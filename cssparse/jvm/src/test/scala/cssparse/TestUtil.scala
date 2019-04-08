@@ -33,7 +33,7 @@ object TestUtil {
     import com.steadystate.css.parser._
     import scala.collection.mutable.ArrayBuffer
 
-    def getErrors(css: String): Seq[String] = {
+    def getErrors(css: String): collection.Seq[String] = {
       val errors = ArrayBuffer[String]()
       val source = new InputSource(new StringReader(css))
       val parser = new CSSOMParser(new SACParserCSS3())

@@ -28,7 +28,7 @@
         long (the max size of the UInt16 length field):
 
 
-    @hl.ref(tests/"ByteTests.scala", Seq("'splash", ""), "val bytes =")
+    @hl.ref(tests/"ByteTests.scala", collection.Seq("'splash", ""), "val bytes =")
 
     @p
         As you can see it has the same underlying structure as previous
@@ -39,7 +39,7 @@
     @p
         Here is how we use it:
 
-    @hl.ref(tests/"ByteTests.scala", Seq("'splash", "", "val bytes ="))
+    @hl.ref(tests/"ByteTests.scala", collection.Seq("'splash", "", "val bytes ="))
 
     @p
         About the same as what you would expect, if you had used FastParse
@@ -68,14 +68,14 @@
         @p
             @code{Bytes} provides convenient methods for construction:
 
-        @hl.ref(tests/"ByteTests.scala", Seq("'bytevector", "'construction", ""))
+        @hl.ref(tests/"ByteTests.scala", collection.Seq("'bytevector", "'construction", ""))
 
         @p
             @code{Bytes} provides many of the common operations that you would
             want to perform on binary-blobs build in. These more or less match
             what you would expect from the standard Scala collections:
 
-        @hl.ref(tests/"ByteTests.scala", Seq("'bytevector", "'operations", ""))
+        @hl.ref(tests/"ByteTests.scala", collection.Seq("'bytevector", "'operations", ""))
 
         @p
             These are just the highlights of the most common operations on a
@@ -103,7 +103,7 @@
             @p
                 FastParse includes Scodec's hex-interpolator:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'hexBytes", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'hexBytes", ""))
 
             @p
                 This is a macro
@@ -117,7 +117,7 @@
                 This function converts a byte array into a nicely-readable
                 hex-grid.
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'prettyBytesBare", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'prettyBytesBare", ""))
             @p
                 This makes it easier for you to look for byte-ranges,
                 count offsets, and that sort of thing. By default, it only shows
@@ -126,7 +126,7 @@
                 array around other indices, and @code{prettyBytes} will add
                 markers so you can see exactly the spots you specified:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'prettyBytesMarker", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'prettyBytesMarker", ""))
 
     @sect{Byte-Specific Parsers}
         @p
@@ -138,7 +138,7 @@
             number. @code{fastparse.byte} provides built in support for these.
 
         @sect{BS}
-            @hl.ref(tests/"ByteTests.scala", Seq("'bs", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'bs", ""))
 
             @p
                 This is the equivalent to the @sect.ref{Basic} literal string
@@ -150,13 +150,13 @@
                 You can also pass in a ByteString to @code{BS} instead of
                 individual byte values:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'bsBytes", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'bsBytes", ""))
 
         @sect{WordN}
             @p
                 @code{fastparse.byte} provides convenient parsers for the common
                 case of parsing 1, 2, 4, and 8-byte "words".
-            @hl.ref(tests/"ByteTests.scala", Seq("'words", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'words", ""))
 
 
             @p
@@ -172,7 +172,7 @@
             @p
                 FastParse provides parsers to capture single bytes and return
                 them, as signed @code{Byte}s.
-            @hl.ref(tests/"ByteTests.scala", Seq("'int8", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'int8", ""))
 
             @p
                 An unsigned versions of the parser
@@ -181,7 +181,7 @@
                 fit into a signed @code{Byte}, which maxes out at positive
                 @code{127}.
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'uint8", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'uint8", ""))
 
             @val endian = lnk("endian", "https://en.wikipedia.org/wiki/Endianness")
             @p
@@ -190,12 +190,12 @@
                 These come in both big-@endian (@code{BE} below) and little-@endian
                 (@code{LE}) versions:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'endian", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'endian", ""))
 
             @p
                 As well as signed and un-signed versions
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'unsignedEndian", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'unsignedEndian", ""))
 
             @p
                 The unsigned versions of all these parsers max out at
@@ -221,7 +221,7 @@
                 point numbers. These come in both big-endian/little-endian
                 and 32/64-bit versions.
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'floats", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'floats", ""))
 
     @sect{Equivalent Byte Parsers}
         @p
@@ -250,7 +250,7 @@
             For example, here is a small example using @hl.scala{BS}
             primitives and @hl.scala{AnyByte}
 
-        @hl.ref(tests/"ByteTests.scala", Seq("'anybyte", ""))
+        @hl.ref(tests/"ByteTests.scala", collection.Seq("'anybyte", ""))
 
         @p
             Apart from the changes listed above, FastParse's byte-parsing API works about
@@ -269,19 +269,19 @@
             FastParse's byte-parsing features:
 
         @sect{Simple Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'simple", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'simple", ""))
             @p
                 This is the simplest byte-parser available: a single @code{BS}
                 containing the bytes you want to match.
 
         @sect{Sequence Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'sequence", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'sequence", ""))
             @p
                 @code{~} matches the left-side parser, and then the right-side
                 parser. You can chain arbitrarily many of these
 
         @sect{Repeat Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'repeat", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'repeat", ""))
             @p
                 @code{.rep} lets you repeat a parser zero or more times. By
                 default, this also allows the parser to not match at all
@@ -293,7 +293,7 @@
                 separator.
 
         @sect{Optional Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'optional", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'optional", ""))
 
             @p
                 @code{.?} lets the parser continue if it failed, trying the
@@ -301,7 +301,7 @@
                 can either parse the `01` with or without a preceding `03`.
 
         @sect{Either Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'either", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'either", ""))
 
             @p
                 @code{|} tries the parser on the left, and if that fails,
@@ -309,7 +309,7 @@
                 passes, but if both sides fail then whole either parser fails.
 
         @sect{End/Start Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'end", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'end", ""))
             @p
                 @code{End} only succeeds if it is at the end of the input. By
                 default, byte parsers can succeed parsing prefixes of the
@@ -319,30 +319,30 @@
                 @code{Start} is the opposite, only succeeding if at the start
                 of the input:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'start", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'start", ""))
 
         @sect{Pass/Fail Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'passfail", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'passfail", ""))
             @p
                 @code{Pass}/@code{Fail} pass or fail all the time. This is
                 useful if you need a "stub" @code{Parser} that always behaves
                 in some fixed way.
 
         @sect{Index Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'index", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'index", ""))
             @p
                 @code{Index} consumes no input, but returns the current index
                 that we've parsed until. Useful for capturing information for
                 debugging later.
 
         @sect{Capture Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'capture", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'capture", ""))
             @p
                 @code{.!} captures the range of the modified bytes as a
                 @sect.ref{Bytes} object, which you can then use for whatever
                 you want. A @code{.!} inside an @sect.ref{Optional Bytes}
                 parser becomes an @code{Option}, and a @code{.!} inside a
-                @sect.ref{Repeat Bytes} parser becomes a @code{Seq}.
+                @sect.ref{Repeat Bytes} parser becomes a @code{collection.Seq}.
 
             @p
                 If you want to capture one of the common formats of 8-, 16-,
@@ -353,7 +353,7 @@
                 tedious and will have better performance.
 
         @sect{Any Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'anybyte", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'anybyte", ""))
 
             @p
                 Consumes any single byte. You can also use
@@ -362,7 +362,7 @@
                 @sect.ref{Capture Bytes}, and
 
         @sect{Positive Lookahead Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'lookahead", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'lookahead", ""))
 
             @p
                 @code{&(...)} tries the inner parser to ensure it passes,
@@ -371,7 +371,7 @@
                 fails.
 
         @sect{Negative Lookahead Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'neglookahead", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'neglookahead", ""))
 
             @p
                 @code{!(...)} tries the inner parser to ensure it fails,
@@ -380,7 +380,7 @@
                 fails.
 
         @sect{Map Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'map", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'map", ""))
 
             @p
                 Lets you transform the current result of this parser (whether
@@ -391,7 +391,7 @@
                 it to a @code{Array[Byte]}, whatever.
 
         @sect{Filter Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'filter", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'filter", ""))
 
             @p
                 Lets you check a parser with a predicate; if the predicate
@@ -399,7 +399,7 @@
 
 
         @sect{FlatMap Bytes}
-            @hl.ref(tests/"ByteTests.scala", Seq("'flatMap", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'flatMap", ""))
             @p
                 Lets you choose the subsequent parser based on the result of
                 the previous parser; useful for length-delimited fields, where
@@ -407,7 +407,7 @@
                 subsequent bytes make up the actual contents of the field.
 
         @sect{BytesWhile}
-            @hl.ref(tests/"ByteTests.scala", Seq("'bytesWhile", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'bytesWhile", ""))
             @p
                 A fast way of consuming lots of bytes as long as the given
                 predicate returns true. Useful for things like 0-delimited
@@ -419,7 +419,7 @@
                 avoid pre-computing the lookup table, in which case the predicate is
                 re-run repeatedly during parsing.
         @sect{BytesWhile}
-            @hl.ref(tests/"ByteTests.scala", Seq("'bytesWhileIn", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'bytesWhileIn", ""))
             @p
                 A fast way of consuming lots of bytes as long as the given
                 predicate returns true. Useful for things like 0-delimited
@@ -432,7 +432,7 @@
                 re-run repeatedly during parsing.
 
         @sect{BytePred}
-            @hl.ref(tests/"ByteTests.scala", Seq("'bytePred", ""))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'bytePred", ""))
             @p
                 Consumes a single-byte, satisfying any arbitrary predicate.
 
@@ -449,12 +449,12 @@
                 This is an example @lnk("UDP Datagram", "https://en.wikipedia.org/wiki/User_Datagram_Protocol")
                 packet-parser implemented using FastParse's byte-parsing api:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'udp", ""), "val bytes =")
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'udp", ""), "val bytes =")
 
             @p
                 Here's how to use it:
 
-            @hl.ref(tests/"ByteTests.scala", Seq("'udp", "val bytes ="))
+            @hl.ref(tests/"ByteTests.scala", collection.Seq("'udp", "val bytes ="))
 
         @sect{BmpParser}
             @p
@@ -545,7 +545,7 @@
                 try one of these:
 
             @ul
-                @for(name <- Seq("canon.mid", "go.mid", "tonghua.mid"))
+                @for(name <- collection.Seq("canon.mid", "go.mid", "tonghua.mid"))
                     @li
                         @lnk(name, s"https://raw.githubusercontent.com/lihaoyi/fastparse/master/fastparseByte/jvm/src/test/resources/$name")
 
@@ -632,7 +632,7 @@
                 If you haven't any .class files around, you can download some examples
                 to try:
             @ul
-                @val files = Seq(
+                @val files = collection.Seq(
                     "Book.java", "Book.class",
                     "Book2.java", "Book2.class",
                     "CodeTest.java", "CodeTest.class"

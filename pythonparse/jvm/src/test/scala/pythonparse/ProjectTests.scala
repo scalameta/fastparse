@@ -12,7 +12,7 @@ import scala.meta.internal.fastparse.all._
 object ProjectTests extends TestSuite{
 
   def check(commitHash: String,
-            ignored: Seq[String] = Nil)
+            ignored: collection.Seq[String] = Nil)
            (implicit testPath: utest.framework.TestPath) = {
     val repo = "https://github.com/" + testPath.value.last
     val name = repo.split("/").last
@@ -41,7 +41,7 @@ object ProjectTests extends TestSuite{
       files.map(_.getPath) ++ dirs.flatMap(listFiles)
     }
 
-    val pythonFiles: Seq[String] = listFiles(new java.io.File(path.toString))
+    val pythonFiles: collection.Seq[String] = listFiles(new java.io.File(path.toString))
             .filter(path => path.toString.endsWith(".py") && !ignored.exists(path.endsWith))
             .map(_.toString)
             .toSeq
@@ -50,7 +50,7 @@ object ProjectTests extends TestSuite{
       Future {
         print("-")
         import sys.process._
-        (Seq("python", "pythonparse/jvm/src/test/resources/pythonparse/parse.py", p).!, p)
+        (collection.Seq("python", "pythonparse/jvm/src/test/resources/pythonparse/parse.py", p).!, p)
       }
     }), Duration.Inf).groupBy(_._1).mapValues(_.map(_._2))
     val selfParsed = grouped(0) groupBy { x =>
@@ -68,7 +68,7 @@ object ProjectTests extends TestSuite{
     "dropbox/changes" - check("37e23c3141b75e4785cf398d015e3dbca41bdd56")
     "django/django" - check(
       "399a8db33b14a1f707912ac48a185fb0a1204913",
-      ignored = Seq("tests/i18n/test_compilation.py")
+      ignored = collection.Seq("tests/i18n/test_compilation.py")
     )
     "mitsuhiko/flask" - check("9291ead32e2fc8b13cef825186c968944e9ff344")
     "zulip/zulip" - check("b5c107ed27b337ed833ebe9c754889bf078d743e")

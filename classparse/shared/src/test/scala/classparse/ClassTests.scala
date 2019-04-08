@@ -156,7 +156,7 @@ object ClassTests extends TestSuite {
 
         assert(parsedClass == expected)
 
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val Parsed.Success(parsedClassInfo, _) = ClassParse.classFile.parseIterator(
             classFile.toArray.grouped(chunkSize).map(Bytes.view)
           )
@@ -565,7 +565,7 @@ object ClassTests extends TestSuite {
 
         assert(parsedClass == expected)
 
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val Parsed.Success(parsedClassInfo, _) = ClassParse.classFile.parseIterator(
             classFile.toArray.grouped(chunkSize).map(Bytes.view)
           )
@@ -1510,7 +1510,7 @@ object ClassTests extends TestSuite {
           expectedCode
         )
 
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val Parsed.Success(parsedClassInfo, _) = ClassParse.classFile.parseIterator(
             classFile.toArray.grouped(chunkSize).map(Bytes.view)
           )

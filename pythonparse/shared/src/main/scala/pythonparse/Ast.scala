@@ -15,45 +15,45 @@ object Ast{
 
   sealed trait mod
   object mod{
-    case class Module(body: Seq[stmt]) extends mod
-    case class Interactive(body: Seq[stmt]) extends mod
-    case class Expression(body: Seq[stmt]) extends mod
+    case class Module(body: collection.Seq[stmt]) extends mod
+    case class Interactive(body: collection.Seq[stmt]) extends mod
+    case class Expression(body: collection.Seq[stmt]) extends mod
   }
 
   sealed trait stmt
   object stmt{
-    case class FunctionDef(name: identifier, args: arguments, body: Seq[stmt], decorator_list: Seq[expr]) extends stmt
-    case class ClassDef(name: identifier, bases: Seq[expr], body: Seq[stmt], decorator_list: Seq[expr]) extends stmt
+    case class FunctionDef(name: identifier, args: arguments, body: collection.Seq[stmt], decorator_list: collection.Seq[expr]) extends stmt
+    case class ClassDef(name: identifier, bases: collection.Seq[expr], body: collection.Seq[stmt], decorator_list: collection.Seq[expr]) extends stmt
     case class Return(value: Option[expr]) extends stmt
 
-    case class Delete(targets: Seq[expr]) extends stmt
-    case class Assign(targets: Seq[expr], value: expr) extends stmt
+    case class Delete(targets: collection.Seq[expr]) extends stmt
+    case class Assign(targets: collection.Seq[expr], value: expr) extends stmt
     case class AugAssign(target: expr, op: operator, value: expr) extends stmt
 
     // not sure if bool allowed: is, can always use int
-    case class Print(dest: Option[expr], values: Seq[expr], nl: bool) extends stmt
+    case class Print(dest: Option[expr], values: collection.Seq[expr], nl: bool) extends stmt
 
     // use 'orelse' because else is a keyword in target languages
-    case class For(target: expr, iter: expr, body: Seq[stmt], orelse: Seq[stmt]) extends stmt
-    case class While(test: expr, body: Seq[stmt], orelse: Seq[stmt]) extends stmt
-    case class If(test: expr, body: Seq[stmt], orelse: Seq[stmt]) extends stmt
-    case class With(context_expr: expr, optional_vars: Option[expr], body: Seq[stmt]) extends stmt
+    case class For(target: expr, iter: expr, body: collection.Seq[stmt], orelse: collection.Seq[stmt]) extends stmt
+    case class While(test: expr, body: collection.Seq[stmt], orelse: collection.Seq[stmt]) extends stmt
+    case class If(test: expr, body: collection.Seq[stmt], orelse: collection.Seq[stmt]) extends stmt
+    case class With(context_expr: expr, optional_vars: Option[expr], body: collection.Seq[stmt]) extends stmt
 
     // 'type' is a bad name
     case class Raise(`type`: Option[expr], inst: Option[expr], tback: Option[expr]) extends stmt
-    case class TryExcept(body: Seq[stmt], handlers: Seq[excepthandler], orelse: Seq[stmt]) extends stmt
-    case class TryFinally(body: Seq[stmt], finalbody: Seq[stmt]) extends stmt
+    case class TryExcept(body: collection.Seq[stmt], handlers: collection.Seq[excepthandler], orelse: collection.Seq[stmt]) extends stmt
+    case class TryFinally(body: collection.Seq[stmt], finalbody: collection.Seq[stmt]) extends stmt
     case class Assert(test: expr, msg: Option[expr]) extends stmt
 
-    case class Import(names: Seq[alias]) extends stmt
-    case class ImportFrom(module: Option[identifier], names: Seq[alias], level: Option[int]) extends stmt
+    case class Import(names: collection.Seq[alias]) extends stmt
+    case class ImportFrom(module: Option[identifier], names: collection.Seq[alias], level: Option[int]) extends stmt
 
     // Doesn't capture requirement that locals must be
     // defined if globals is
     // still supports use as a function!
     case class Exec(body: expr, globals: Option[expr], locals: Option[expr]) extends stmt
 
-    case class Global(names: Seq[identifier]) extends stmt
+    case class Global(names: collection.Seq[identifier]) extends stmt
     case class Expr(value: expr) extends stmt
     case object Pass extends stmt
     case object Break extends stmt
@@ -67,23 +67,23 @@ object Ast{
   // BoolOp() can use left & right?
   sealed trait expr
   object expr{
-    case class BoolOp(op: boolop, values: Seq[expr]) extends expr
+    case class BoolOp(op: boolop, values: collection.Seq[expr]) extends expr
     case class BinOp(left: expr, op: operator, right: expr) extends expr
     case class UnaryOp(op: unaryop, operand: expr) extends expr
     case class Lambda(args: arguments, body: expr) extends expr
     case class IfExp(test: expr, body: expr, orelse: expr) extends expr
-    case class Dict(keys: Seq[expr], values: Seq[expr]) extends expr
-    case class Set(elts: Seq[expr]) extends expr
-    case class ListComp(elt: expr, generators: Seq[comprehension]) extends expr
-    case class SetComp(elt: expr, generators: Seq[comprehension]) extends expr
-    case class DictComp(key: expr, value: expr, generators: Seq[comprehension]) extends expr
-    case class GeneratorExp(elt: expr, generators: Seq[comprehension]) extends expr
+    case class Dict(keys: collection.Seq[expr], values: collection.Seq[expr]) extends expr
+    case class Set(elts: collection.Seq[expr]) extends expr
+    case class ListComp(elt: expr, generators: collection.Seq[comprehension]) extends expr
+    case class SetComp(elt: expr, generators: collection.Seq[comprehension]) extends expr
+    case class DictComp(key: expr, value: expr, generators: collection.Seq[comprehension]) extends expr
+    case class GeneratorExp(elt: expr, generators: collection.Seq[comprehension]) extends expr
     // the grammar constrains where yield expressions can occur
     case class Yield(value: Option[expr]) extends expr
     // need sequences for compare to distinguish between
     // x < 4 < 3 and (x < 4) < 3
-    case class Compare(left: expr, ops: Seq[cmpop], comparators: Seq[expr]) extends expr
-    case class Call(func: expr, args: Seq[expr], keywords: Seq[keyword], starargs: Option[expr], kwargs: Option[expr]) extends expr
+    case class Compare(left: expr, ops: collection.Seq[cmpop], comparators: collection.Seq[expr]) extends expr
+    case class Call(func: expr, args: collection.Seq[expr], keywords: collection.Seq[keyword], starargs: Option[expr], kwargs: Option[expr]) extends expr
     case class Repr(value: expr) extends expr
     case class Num(n: Any) extends expr // a number as a PyObject.
     case class Str(s: string) extends expr // need to raw: specify, unicode, etc?
@@ -93,8 +93,8 @@ object Ast{
     case class Attribute(value: expr, attr: identifier, ctx: expr_context) extends expr
     case class Subscript(value: expr, slice: slice, ctx: expr_context) extends expr
     case class Name(id: identifier, ctx: expr_context) extends expr
-    case class List(elts: Seq[expr], ctx: expr_context) extends expr
-    case class Tuple(elts: Seq[expr], ctx: expr_context) extends expr
+    case class List(elts: collection.Seq[expr], ctx: expr_context) extends expr
+    case class Tuple(elts: collection.Seq[expr], ctx: expr_context) extends expr
   }
   // col_offset is the byte offset in the utf8 string the parser uses
   case class attributes(lineno: Int, col_offset: Int)
@@ -114,7 +114,7 @@ object Ast{
 
     case object Ellipsis extends slice
     case class Slice(lower: Option[expr], upper: Option[expr], step: Option[expr]) extends slice
-    case class ExtSlice(dims: Seq[slice]) extends slice
+    case class ExtSlice(dims: collection.Seq[slice]) extends slice
     case class Index(value: expr) extends slice
   }
 
@@ -163,15 +163,15 @@ object Ast{
     case object NotIn extends cmpop
   }
 
-  case class comprehension(target: expr, iter: expr, ifs: Seq[expr])
+  case class comprehension(target: expr, iter: expr, ifs: collection.Seq[expr])
 
   // not sure what to call the first argument for raise and except
   sealed trait excepthandler
   object excepthandler{
-    case class ExceptHandler(`type`: Option[expr], name: Option[expr], body: Seq[stmt]) extends excepthandler
+    case class ExceptHandler(`type`: Option[expr], name: Option[expr], body: collection.Seq[stmt]) extends excepthandler
   }
 
-  case class arguments(args: Seq[expr], vararg: Option[identifier], kwarg: Option[identifier], defaults: Seq[expr])
+  case class arguments(args: collection.Seq[expr], vararg: Option[identifier], kwarg: Option[identifier], defaults: collection.Seq[expr])
 
   // keyword arguments supplied to call
   case class keyword(arg: identifier, value: expr)

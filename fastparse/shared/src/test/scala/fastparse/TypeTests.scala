@@ -23,7 +23,7 @@ object TypeTests {
   val p7: P[(Char, Int, String, (Int, Int))] = P[Char] ~ P[Int] ~ P[Unit] ~ P[String] ~ P[Unit] ~ P[(Int, Int)]
   class R[T]
   val p8: P[Unit] = P[Unit].rep
-  val p9: P[Seq[Int]] = P[Int].rep
+  val p9: P[collection.Seq[Int]] = P[Int].rep
   val p10: P[Unit] = P[Unit].?
   val p11: P[Option[Int]] = P[Int].?
 }

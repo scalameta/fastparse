@@ -4,7 +4,7 @@ import scala.collection.mutable
 
 /**
  * Container for all the type-level logic around appending things
- * to tuples or flattening `Seq[Unit]`s into `Unit`s.
+ * to tuples or flattening `collection.Seq[Unit]`s into `Unit`s.
  *
  * Some of these implicits make liberal use of mutable state, so as
  * to minimize allocations while parsing.
@@ -41,7 +41,7 @@ object Implicits {
   }
   trait LowPriRepeater{
     implicit def GenericRepeaterImplicit[T] = GenericRepeater[T]()
-    case class GenericRepeater[T]() extends Repeater[T, Seq[T]]{
+    case class GenericRepeater[T]() extends Repeater[T, collection.Seq[T]]{
       type Acc = mutable.Buffer[T]
       def initial = mutable.Buffer.empty[T]
       def accumulate(t: T, acc: mutable.Buffer[T]) = acc += t

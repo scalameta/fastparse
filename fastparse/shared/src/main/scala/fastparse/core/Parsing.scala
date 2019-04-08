@@ -118,7 +118,7 @@ object Parsed {
       s"${Precedence.opWrap(p, Precedence.`:`)}:${input.repr.prettyIndex(input, index)}"
     }
 
-    def formatStackTrace[Elem, Repr](stack: Seq[Frame],
+    def formatStackTrace[Elem, Repr](stack: collection.Seq[Frame],
                                      input: ParserInput[Elem, Repr],
                                      index: Int,
                                      last: String) = {
@@ -127,7 +127,7 @@ object Parsed {
         yield formatParser(p, input, index)
       (body :+ last).mkString(" / ") + " ..." + input.repr.literalize(input.slice(index, index + 10))
     }
-    def filterFullStack(fullStack: Seq[Frame]) = {
+    def filterFullStack(fullStack: collection.Seq[Frame]) = {
       fullStack.collect { case f @ Frame(i, p) if p.shortTraced => f }
     }
   }

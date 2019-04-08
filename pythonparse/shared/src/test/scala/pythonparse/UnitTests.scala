@@ -107,8 +107,8 @@ object UnitTests extends TestSuite{
         'comparison - expr(
           Compare(
             'a,
-            Seq(Lt, LtE, Gt, GtE, Eq, NotEq, In, NotIn),
-            Seq('b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
+            collection.Seq(Lt, LtE, Gt, GtE, Eq, NotEq, In, NotIn),
+            collection.Seq('b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
           ),
           "a < b <= c > d >= e == f != g in h not in i"
         )
@@ -126,102 +126,102 @@ object UnitTests extends TestSuite{
           Call(
             Call(
               Call('a, Nil, Nil, None, None),
-              Seq('x), Seq(keyword('y, 'z)), Some('wtf), Some('omg)
+              collection.Seq('x), collection.Seq(keyword('y, 'z)), Some('wtf), Some('omg)
             ),
             Nil, Nil, None, Some('lol)
           ),
           "a()(x,y=z, *wtf, **omg)(**lol)"
         )
         'slicing - expr(
-          Subscript('abc, slice.ExtSlice(Seq(slice.Index('d), slice.Slice(Some('e), Some('f), Some('None)))), Load),
+          Subscript('abc, slice.ExtSlice(collection.Seq(slice.Index('d), slice.Slice(Some('e), Some('f), Some('None)))), Load),
           "abc[d, e:f:]"
         )
       }
       'enclosed - {
         'list - expr(
-          List(Seq(Num(1.0), Num(2.0), Str("a")), Load),
+          List(collection.Seq(Num(1.0), Num(2.0), Str("a")), Load),
           "[1, 2, 'a']", "[1,2, 'a']"
         )
         'list0 - expr(
-          List(Seq(Num(1.0)), Load),
+          List(collection.Seq(Num(1.0)), Load),
           "[1]", "[   1]"
         )
         'tuple - expr(
-          Tuple(Seq(Num(1.0), Num(2.0), Str("a")), Load),
+          Tuple(collection.Seq(Num(1.0), Num(2.0), Str("a")), Load),
           "(1, 2, 'a')"
         )
         'single_item_tuple - expr(
-          Tuple(Seq(Num(1.0)), Load),
+          Tuple(collection.Seq(Num(1.0)), Load),
           "(1,)"
         )
         'set - expr(
-          Set(Seq(Num(1.0), Num(2.0), Str("a"))),
+          Set(collection.Seq(Num(1.0), Num(2.0), Str("a"))),
           "{1, 2, 'a'}"
         )
         'set0 - expr(
-          Set(Seq(Num(1.0))),
+          Set(collection.Seq(Num(1.0))),
           "{1}"
         )
         'dict - expr(
           Dict(
-            Seq(Num(1.0), Num(2.0), Str("a")),
-            Seq(Str("1"), Str("2"), 'a)
+            collection.Seq(Num(1.0), Num(2.0), Str("a")),
+            collection.Seq(Str("1"), Str("2"), 'a)
           ),
           "{1 :'1', 2: '2', 'a': a}"
         )
         'list_comp - expr(
-          ListComp('x, Seq(comprehension('y, 'z, Seq('w)))),
+          ListComp('x, collection.Seq(comprehension('y, 'z, collection.Seq('w)))),
           "[x for y in z if w]"
         )
 
         'list_comp2 - expr(
-          ListComp(Tuple(Seq('x, 'y), Load), Seq(
+          ListComp(Tuple(collection.Seq('x, 'y), Load), collection.Seq(
             comprehension(
-              Tuple(Seq('z, 'a), Load),
-              Tuple(Seq('b, 'c), Load),
-              Seq('d, 'e)
+              Tuple(collection.Seq('z, 'a), Load),
+              Tuple(collection.Seq('b, 'c), Load),
+              collection.Seq('d, 'e)
             ),
             comprehension('j, 'k, Nil)
           )),
           "[(x, y) for (z, a) in (b, c) if d if e for j in k]"
         )
         'set_comp - expr(
-          SetComp('x, Seq(comprehension('y, 'z, Seq('w)))),
+          SetComp('x, collection.Seq(comprehension('y, 'z, collection.Seq('w)))),
           "{x for y in z if w}"
         )
         'dict_comp - expr(
-          DictComp('x, Num(1.0), Seq(comprehension('y, 'z, Seq('w)))),
+          DictComp('x, Num(1.0), collection.Seq(comprehension('y, 'z, collection.Seq('w)))),
           "{x: 1 for y in z if w}"
         )
         'generator - expr(
-          GeneratorExp('x, Seq(comprehension('y, 'z, Seq('w)))),
+          GeneratorExp('x, collection.Seq(comprehension('y, 'z, collection.Seq('w)))),
           "(x for y in z if w)"
         )
       }
     }
     'stmts - {
-      def stmt(expected: Seq[Ast.stmt], s: String*) = s.map(TestUtils.check(Statements.file_input, expected, _)).head
+      def stmt(expected: collection.Seq[Ast.stmt], s: String*) = s.map(TestUtils.check(Statements.file_input, expected, _)).head
       // Statements which only have expressions within them
       'simple - {
 
         'empty - stmt(Nil, "")
-        'pass - stmt(Seq(Pass), "pass")
-        'comment - stmt(Seq(Pass), "pass\n#hello")
-        'trailing_newline - stmt(Seq(Pass), "pass\n")
-        'expr - stmt(Seq(Expr(Num(123))), "123")
-        'oneline - stmt(Seq(Pass, Pass, Pass), "pass; pass; pass")
+        'pass - stmt(collection.Seq(Pass), "pass")
+        'comment - stmt(collection.Seq(Pass), "pass\n#hello")
+        'trailing_newline - stmt(collection.Seq(Pass), "pass\n")
+        'expr - stmt(collection.Seq(Expr(Num(123))), "123")
+        'oneline - stmt(collection.Seq(Pass, Pass, Pass), "pass; pass; pass")
         'twoline - stmt(
-          Seq(Pass, Pass),
+          collection.Seq(Pass, Pass),
           "pass\npass"
         )
         'trailing_space - stmt(
-          Seq(Pass, Pass),
+          collection.Seq(Pass, Pass),
           "pass \npass"
         )
         'pyramid - stmt(
-          Seq(
+          collection.Seq(
             Pass, Return(None), Return(Some(Num(1))),
-            Delete(Seq('x)), Raise(Some('Foo), None, None),
+            Delete(collection.Seq('x)), Raise(Some('Foo), None, None),
             Assert('False, None)
           ),
           """pass; return; return 1;
@@ -231,57 +231,57 @@ object UnitTests extends TestSuite{
         )
 
         'import - stmt(
-          Seq(Import(Seq(alias(identifier("a.b.c"), None)))),
+          collection.Seq(Import(collection.Seq(alias(identifier("a.b.c"), None)))),
           "import a.b.c"
         )
         'import2 - stmt(
-          Seq(Import(Seq(alias(identifier("a.b.c"), Some('d)), alias(identifier("e"), Some('f))))),
+          collection.Seq(Import(collection.Seq(alias(identifier("a.b.c"), Some('d)), alias(identifier("e"), Some('f))))),
           "import a.b.c as d, e as f"
         )
         'import3 - stmt(
-          Seq(ImportFrom(Some('x), Seq(alias('y, None)), None)),
+          collection.Seq(ImportFrom(Some('x), collection.Seq(alias('y, None)), None)),
           "from x import y"
         )
         'import4 - stmt(
-          Seq(ImportFrom(Some(identifier("x.y")), Seq(alias('y, Some('z))), None)),
+          collection.Seq(ImportFrom(Some(identifier("x.y")), collection.Seq(alias('y, Some('z))), None)),
           "from x.y import y as z"
         )
         'import5 - stmt(
-          Seq(ImportFrom(Some(identifier("x.y")), Seq(alias('y, Some('z))), Some(1))),
+          collection.Seq(ImportFrom(Some(identifier("x.y")), collection.Seq(alias('y, Some('z))), Some(1))),
           "from .x.y import y as z"
         )
         'import6 - stmt(
-          Seq(ImportFrom(None, Seq(alias('y, Some('z))), Some(2))),
+          collection.Seq(ImportFrom(None, collection.Seq(alias('y, Some('z))), Some(2))),
           "from .. import y as z"
         )
         'assign - stmt(
-          Seq(Assign(Seq(Name('x, Load)), Num(1))),
+          collection.Seq(Assign(collection.Seq(Name('x, Load)), Num(1))),
           "x = 1"
         )
         'assign2 - stmt(
-          Seq(Assign(Seq('x, Tuple(Seq('y, 'z), Load)), Num(1))),
+          collection.Seq(Assign(collection.Seq('x, Tuple(collection.Seq('y, 'z), Load)), Num(1))),
           "x = y, z = 1"
         )
         'augassign - stmt(
-          Seq(AugAssign('x, Add, Num(2))),
+          collection.Seq(AugAssign('x, Add, Num(2))),
           "x += 2"
         )
       }
       // Statements which can have other statements within them
       'compound - {
         'while - stmt(
-          Seq(While('True, Seq(Pass), Nil)),
+          collection.Seq(While('True, collection.Seq(Pass), Nil)),
           """while True: pass"""
         )
         'while2 - stmt(
-          Seq(While('True, Seq(Pass, Pass), Nil)),
+          collection.Seq(While('True, collection.Seq(Pass, Pass), Nil)),
           """while True:
             |    pass
             |    pass
             |""".stripMargin
         )
         'while3 - stmt(
-          Seq(While('True, Seq(Expr(Call('func, Seq(Num(1)), Nil, None, None)), Pass), Nil), Pass),
+          collection.Seq(While('True, collection.Seq(Expr(Call('func, collection.Seq(Num(1)), Nil, None, None)), Pass), Nil), Pass),
           """while True:
             |    func(
             |1
@@ -291,25 +291,25 @@ object UnitTests extends TestSuite{
             |""".stripMargin
         )
         'for - stmt(
-          Seq(For(Tuple(Seq('x, 'y), Load), Call('range, Seq(Num(10)), Nil, None, None), Seq(Print(None, Seq('x), true)), Nil)),
+          collection.Seq(For(Tuple(collection.Seq('x, 'y), Load), Call('range, collection.Seq(Num(10)), Nil, None, None), collection.Seq(Print(None, collection.Seq('x), true)), Nil)),
           """for x, y in range(10):
             |  print x""".stripMargin
         )
         'if - stmt(
-          Seq(If(
+          collection.Seq(If(
             'a,
-            Seq(If(
+            collection.Seq(If(
               'b,
-              Seq(Pass),
-              Seq(Print(None, Seq(Num(1)), true))
+              collection.Seq(Pass),
+              collection.Seq(Print(None, collection.Seq(Num(1)), true))
             )),
-            Seq(If(
+            collection.Seq(If(
               'c,
-              Seq(Pass),
-              Seq(If(
+              collection.Seq(Pass),
+              collection.Seq(If(
                 'd,
-                Seq(Pass),
-                Seq(Pass)
+                collection.Seq(Pass),
+                collection.Seq(Pass)
               ))
             ))
           )),
@@ -326,9 +326,9 @@ object UnitTests extends TestSuite{
         )
 
         'forelse - stmt(
-          Seq(For(Name('w, Load), Tuple(Seq('x, 'y, 'z), Load),
-            Seq(For(Tuple(Seq('a, 'b), Load), 'c, Seq(Pass), Nil)),
-            Seq(Pass)
+          collection.Seq(For(Name('w, Load), Tuple(collection.Seq('x, 'y, 'z), Load),
+            collection.Seq(For(Tuple(collection.Seq('a, 'b), Load), 'c, collection.Seq(Pass), Nil)),
+            collection.Seq(Pass)
           )),
           """for w in x, y, z:
             |  for a, b in c:
@@ -338,11 +338,11 @@ object UnitTests extends TestSuite{
           """.stripMargin
         )
         'class1 - stmt(
-          Seq(ClassDef('Foo, Nil, Seq(Pass), Nil)),
+          collection.Seq(ClassDef('Foo, Nil, collection.Seq(Pass), Nil)),
           """class Foo: pass""".stripMargin
         )
         'class2 - stmt(
-          Seq(ClassDef('Foo, Seq(BinOp('A, BitOr, 'B)), Seq(Pass), Seq('foo, Call(Attribute('bar, 'baz, Load), Seq(Num(1)), Nil, None, None)))),
+          collection.Seq(ClassDef('Foo, collection.Seq(BinOp('A, BitOr, 'B)), collection.Seq(Pass), collection.Seq('foo, Call(Attribute('bar, 'baz, Load), collection.Seq(Num(1)), Nil, None, None)))),
           """@foo
             |@bar.baz(1)
             |class Foo(A | B):
@@ -350,17 +350,17 @@ object UnitTests extends TestSuite{
           """.stripMargin
         )
         'function - stmt(
-          Seq(FunctionDef('foo, arguments(Seq(Name('x, Param)), None, None, Nil), Seq(Return(Some('x))), Nil)),
+          collection.Seq(FunctionDef('foo, arguments(collection.Seq(Name('x, Param)), None, None, Nil), collection.Seq(Return(Some('x))), Nil)),
           """def foo(x):
             |  return x
           """.stripMargin
         )
         'function2 - stmt(
-          Seq(FunctionDef(
+          collection.Seq(FunctionDef(
             'foo,
-            arguments(Seq(Name('x, Param), Name('y, Param)), None, Some('z), Seq(Num(1))),
-            Seq(Return(Some('x))),
-            Seq('dec)
+            arguments(collection.Seq(Name('x, Param), Name('y, Param)), None, Some('z), collection.Seq(Num(1))),
+            collection.Seq(Return(Some('x))),
+            collection.Seq('dec)
           )),
           """@dec
             |def foo(x, y=1, **z):
@@ -368,11 +368,11 @@ object UnitTests extends TestSuite{
           """.stripMargin
         )
         'with - stmt(
-          Seq(With('x, Some(Name('y, Load)), Seq(Return(Some('y))))),
+          collection.Seq(With('x, Some(Name('y, Load)), collection.Seq(Return(Some('y))))),
           "with x as y: return y"
         )
         'with2 - stmt(
-          Seq(With('x, Some(Name('y, Load)), Seq(With('a, Some(Name('b, Load)), Seq(Return(Some(Tuple(Seq('y, 'b), Load)))))))),
+          collection.Seq(With('x, Some(Name('y, Load)), collection.Seq(With('a, Some(Name('b, Load)), collection.Seq(Return(Some(Tuple(collection.Seq('y, 'b), Load)))))))),
           "with x as y, a as b: return y, b"
         )
       }

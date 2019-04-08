@@ -418,7 +418,7 @@ object Combinators {
     override def toString = p.toString
   }
   /**
-   * Repeats the parser over and over. Succeeds with a `Seq` of results
+   * Repeats the parser over and over. Succeeds with a `collection.Seq` of results
    * if there are more than [[min]] and less than [[max]] successful parses.
    * The range [[min]] and [[max]] bounds are inclusive.
    * It uses the [[delimiter]] parser between parses and discards its results.
@@ -490,7 +490,7 @@ object Combinators {
       }
     }
     override def toString = {
-      val things = Seq(
+      val things = collection.Seq(
         if (min == 0) None else Some(min),
         if (delimiter == Pass[Elem, Repr]) None else Some("sep = " + delimiter),
         if (max == Int.MaxValue) None else Some("max = " + max)

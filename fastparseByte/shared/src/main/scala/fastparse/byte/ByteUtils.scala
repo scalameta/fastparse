@@ -11,7 +11,7 @@ import scala.collection.mutable
   */
 object ByteUtils{
   def prettyBytes(bytes: ByteVector,
-                  markers: Seq[Int] = Seq(-1),
+                  markers: collection.Seq[Int] = collection.Seq(-1),
                   contextRows: Int = 8) = {
     val invalidIndices = markers.filter(
       x => x < -1 /*-1 is special case*/ || x >= bytes.length

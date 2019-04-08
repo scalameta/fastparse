@@ -19,14 +19,14 @@ class ByteApi() extends Api[Byte, ByteVector](
 
   }
 
-  def ElemIn(strings: Seq[Byte]*) = {
+  def ElemIn(strings: collection.Seq[Byte]*) = {
     Intrinsics.ElemIn[Byte, Bytes]("ByteIn", strings.map(_.toIndexedSeq))
   }
-  def ElemsWhileIn(strings: Seq[Byte], min: Int = 1) = {
-    Intrinsics.ElemsWhileIn[Byte, Bytes]("BytesWhileIn", Seq(strings), min)
+  def ElemsWhileIn(strings: collection.Seq[Byte], min: Int = 1) = {
+    Intrinsics.ElemsWhileIn[Byte, Bytes]("BytesWhileIn", collection.Seq(strings), min)
   }
-  def ByteIn(strings: Seq[Byte]*) = ElemIn(strings:_*)
-  def BytesWhileIn(strings: Seq[Byte], min: Int = 1) = ElemsWhileIn(strings, min)
+  def ByteIn(strings: collection.Seq[Byte]*) = ElemIn(strings:_*)
+  def BytesWhileIn(strings: collection.Seq[Byte], min: Int = 1) = ElemsWhileIn(strings, min)
 
 
   object ElemsWhile extends ElemsWhile{
@@ -100,7 +100,7 @@ class ByteApi() extends Api[Byte, ByteVector](
     * the whole input)
     */
   def prettyBytes(bytes: Bytes,
-                  markers: Seq[Int] = Seq(-1),
+                  markers: collection.Seq[Int] = collection.Seq(-1),
                   contextRows: Int = 8) = {
     ByteUtils.prettyBytes(bytes, markers, contextRows)
   }
@@ -113,9 +113,9 @@ object all extends ByteApi {
 
   /**
     * Parses the `sizeParser` to get a number `n`, and then parses `p` exactly
-    * that many times, and returns the results as a `Seq`
+    * that many times, and returns the results as a `collection.Seq`
     */
-  def repeatWithSize[Num: Numeric, T](sizeParser: Parser[Num], p: Parser[T]): Parser[Seq[T]] =
+  def repeatWithSize[Num: Numeric, T](sizeParser: Parser[Num], p: Parser[T]): Parser[collection.Seq[T]] =
   P( sizeParser.flatMap(l => p.rep(exactly = implicitly[Numeric[Num]].toInt(l))) )
 }
 object noApi extends ByteApi

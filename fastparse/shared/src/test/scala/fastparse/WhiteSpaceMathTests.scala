@@ -13,7 +13,7 @@ object WhiteSpaceMathTests extends TestSuite{
   }
   import scala.meta.internal.fastparse.noApi._
   import White._
-  def eval(tree: (Int, Seq[(String, Int)])): Int = {
+  def eval(tree: (Int, collection.Seq[(String, Int)])): Int = {
     val (base, ops) = tree
     ops.foldLeft(base){ case (left, (op, right)) => op match{
       case "+" => left + right case "-" => left - right

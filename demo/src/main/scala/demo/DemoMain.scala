@@ -44,13 +44,13 @@ object DemoMain {
 
     def updateLogBox() = {
       loggerBox.textContent = (
-        Seq(
+        collection.Seq(
           "--------Remaining Events--------",
           progress,
           "---------Current Notes----------"
         ) ++
         notes.take(1) ++
-        Seq(
+        collection.Seq(
           "---------Earlier Notes----------"
         ) ++
         notes.slice(1, 10)

@@ -6,7 +6,7 @@ import all._
  * Same as MathTests, but demonstrating the use of whitespace
  */
 object IndentationTests extends TestSuite{
-  def eval(tree: (String, Seq[Int])) = tree match{
+  def eval(tree: (String, collection.Seq[Int])) = tree match{
     case ("+", nums) => nums.reduceLeft(_+_)
     case ("-", nums) => nums.reduceLeft(_-_)
     case ("*", nums) => nums.reduceLeft(_*_)
@@ -22,7 +22,7 @@ object IndentationTests extends TestSuite{
     val number: P[Int] = P( CharIn('0'to'9').rep(1).!.map(_.toInt) )
 
     val deeper: P[Int] = P( " ".rep(indent + 1).!.map(_.length) )
-    val blockBody: P[Seq[Int]] = "\n" ~ deeper.flatMap(i =>
+    val blockBody: P[collection.Seq[Int]] = "\n" ~ deeper.flatMap(i =>
       new Parser(indent = i).factor.rep(1, sep = ("\n" + " " * i).~/)
     )
     val block: P[Int] = P( CharIn("+-*/").! ~/ blockBody).map(eval)

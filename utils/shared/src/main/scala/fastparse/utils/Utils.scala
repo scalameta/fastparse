@@ -155,7 +155,7 @@ object Utils {
    * An trie node for quickly matching multiple strings which
    * share the same prefix, one char at a time.
    */
-  final class TrieNode[Elem](strings: Seq[IndexedSeq[Elem]], ignoreCase: Boolean = false)
+  final class TrieNode[Elem](strings: collection.Seq[IndexedSeq[Elem]], ignoreCase: Boolean = false)
                             (implicit helper: ElemSetHelper[Elem], ordering: Ordering[Elem]) {
 
     val (min, max, arr) = {

@@ -6,19 +6,19 @@ shared
 noPublish
 
 def macroDependencies(version: String) =
-  Seq(
+  collection.Seq(
     "org.scala-lang" % "scala-reflect" % version % "provided",
     "org.scala-lang" % "scala-compiler" % version % "provided"
   ) ++
   (if (version startsWith "2.10.")
-     Seq(compilerPlugin("org.scalamacros" % s"paradise" % "2.1.0" cross CrossVersion.full),
+     collection.Seq(compilerPlugin("org.scalamacros" % s"paradise" % "2.1.0" cross CrossVersion.full),
          "org.scalamacros" %% s"quasiquotes" % "2.1.0")
    else
-     Seq())
+     collection.Seq())
 
-val shared = Seq(
+val shared = collection.Seq(
   libraryDependencies ++= macroDependencies(scalaVersion.value),
-  libraryDependencies ++= Seq(
+  libraryDependencies ++= collection.Seq(
     "com.lihaoyi" %%% "utest" % "0.6.7" % "test",
     "com.lihaoyi" %%% "sourcecode" % "0.1.6"
   ),
@@ -26,7 +26,7 @@ val shared = Seq(
   organization := "org.scalameta",
   version := Constants.version,
   scalaVersion := Constants.scala212,
-  crossScalaVersions := Seq(Constants.scala211, Constants.scala212, Constants.scala213),
+  crossScalaVersions := collection.Seq(Constants.scala211, Constants.scala212, Constants.scala213),
   resolvers += Resolver.sonatypeRepo("public"),
   // libraryDependencies += "com.lihaoyi" %% "acyclic" % "0.1.5" % "provided",
   // addCompilerPlugin("com.lihaoyi" %% "acyclic" % "0.1.5"),
@@ -54,13 +54,13 @@ val shared = Seq(
       </developers>
 )
 
-lazy val nativeSettings = Seq(
+lazy val nativeSettings = collection.Seq(
   scalaVersion := Constants.scala211,
-  crossScalaVersions := Seq(Constants.scala211),
+  crossScalaVersions := collection.Seq(Constants.scala211),
   nativeLinkStubs := true
 )
 
-lazy val noPublish = Seq(
+lazy val noPublish = collection.Seq(
   publishArtifact := false,
   publish := {},
   publishLocal := {},
@@ -74,9 +74,9 @@ lazy val utils = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     unmanagedSourceDirectories in Compile ++= {
       CrossVersion.partialVersion(scalaVersion.value) match {
         case Some((2, n)) if n >= 12 =>
-          Seq(baseDirectory.value / ".." / "shared" / "src" / "main" / "scala-2.11")
+          collection.Seq(baseDirectory.value / ".." / "shared" / "src" / "main" / "scala-2.11")
         case _ =>
-          Seq()
+          collection.Seq()
       }
     }
   )
@@ -117,7 +117,7 @@ lazy val fastparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
           }
         """.stripMargin
       IO.write(file, output)
-      Seq(file)
+      collection.Seq(file)
     }
   )
   // In order to make the midi-parser-test in fastparseJVM/test:run work

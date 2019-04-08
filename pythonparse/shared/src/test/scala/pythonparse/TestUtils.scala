@@ -17,7 +17,7 @@ object TestUtils {
         result
     }
 
-    for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+    for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
       val parsed = (rule ~ End).parseIterator(s.grouped(chunkSize))
       val stringResult = parsed match {
         case f: Parsed.Failure => throw new Exception(f.extra.traced.trace)

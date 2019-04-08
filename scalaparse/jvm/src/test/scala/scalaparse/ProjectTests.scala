@@ -18,7 +18,7 @@ object ProjectTests extends TestSuite{
 
     def checkDir(path: String, filter: String => Boolean = _ => true) = {
       println("Checking Dir " + path)
-      def listFiles(s: File): Seq[String] = {
+      def listFiles(s: File): collection.Seq[String] = {
         val (dirs, files) = Option(s.listFiles).getOrElse(Array[File]()).partition(_.isDirectory)
 
         files.map(_.getPath) ++ dirs.flatMap(listFiles)
@@ -90,7 +90,7 @@ object ProjectTests extends TestSuite{
     "apache/spark" - checkRepo("014dc8471200518d63005eed531777d30d8a6639")
     "sbt/sbt" - checkRepo(
       "4ce4fb72bde3b8acfaf526b79d32ca1463bc687b",
-      x => !Seq(
+      x => !collection.Seq(
         // Unicode escapes in weird places
         "target/repos/sbt/main-settings/src/main/scala/sbt/std/InputWrapper.scala",
         // uses a package called `macro`
@@ -117,7 +117,7 @@ object ProjectTests extends TestSuite{
     "GravityLabs/goose" - checkRepo("462f04a0b3d79508266770fd2462b1d4b43f6c54")
     "ornicar/lila" - checkRepo(
       "3f093d56e5000560a5db83e9d26db8e5143f2a80",
-      x => !Seq(
+      x => !collection.Seq(
         "target/repos/lila/modules/lobby/src/main/SocketHandler.scala"
       ).exists(x.startsWith)
     )
@@ -128,14 +128,14 @@ object ProjectTests extends TestSuite{
     // takes forever to clone on crappy internet =/
     "JetBrains/intellij-scala" - checkRepo(
       "e01bf0eb1a40e7216923f233b6d79121a4663432",
-      x => !Seq(
+      x => !collection.Seq(
         // Uses unicode escapes
         "target/repos/intellij-scala/scala/scala-impl/testdata/scalacTests/failed/t389.scala"
       ).exists(x.startsWith)
     )
     "scalatest/scalatest" - checkRepo(
       "6e03d4d77462d0f1ab2fc211c22c03c4150b9a30",
-      x => !Seq(
+      x => !collection.Seq(
         // Unicode escapes in weird places
         "target/repos/scalatest/common-test/src/main/scala/org/scalatest/OperatorNames.scala",
         "target/repos/scalatest/scalatest-test/src/test/scala/org/scalatest/OperatorNames.scala"
@@ -145,7 +145,7 @@ object ProjectTests extends TestSuite{
     // annoyingly uses trailing .s all over the place, needing dozens of
     // skipped files. Probably only run this after we can properly parse those
 //    'delite- checkRepo("https://github.com/stanford-ppl/Delite",
-//      x => !Seq(
+//      x => !collection.Seq(
 //        // trailing . after number
 //        "target/repos/Delite/apps/multi-dsl/src/ppl/apps/interop/CustomerPricing.scala",
 //        "target/repos/Delite/apps/optiml"
@@ -154,7 +154,7 @@ object ProjectTests extends TestSuite{
     "etorreborre/specs2" - checkRepo("2c0d6d9cc518a08ac6861c4e4ea9c8def2b37157")
     "scala/scala" - checkRepo(
       "c2a5883891a68180b143eb462c8b0cebc8d3b021",
-      x => !Seq(
+      x => !collection.Seq(
         // This fella seems to make the scalac parser hang (???)
         "target/repos/scala/test/files/neg/t5510.scala",
         // Unicode escapes in weird places

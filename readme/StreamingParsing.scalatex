@@ -10,7 +10,7 @@
         @hl.scala{Iterator[String]} (or @hl.scala{Iterator[Array[Byte]]} for
         @sect.ref{Byte Parsers}).
 
-    @hl.ref(tests/"IteratorTests.scala", Seq("'basic", ""))
+    @hl.ref(tests/"IteratorTests.scala", collection.Seq("'basic", ""))
 
     @p
         Note that fastparse does not parse @hl.scala{Iterator[Char]} or

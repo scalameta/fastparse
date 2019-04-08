@@ -28,16 +28,16 @@ class StringApi() extends Api[Char, String](
       Intrinsics.ElemsWhile("CharsWhile", pred, min, precompute)
   }
 
-  def ElemIn(strings: Seq[Char]*) = {
+  def ElemIn(strings: collection.Seq[Char]*) = {
     Intrinsics.ElemIn[Char, String]("CharIn", strings.map(_.toIndexedSeq))
   }
 
-  def ElemsWhileIn(strings: Seq[Char], min: Int = 1) = {
-    Intrinsics.ElemsWhileIn[Char, String]("CharsWhileIn", Seq(strings), min)
+  def ElemsWhileIn(strings: collection.Seq[Char], min: Int = 1) = {
+    Intrinsics.ElemsWhileIn[Char, String]("CharsWhileIn", collection.Seq(strings), min)
   }
 
-  def CharIn(strings: Seq[Char]*) = ElemIn(strings:_*)
-  def CharsWhileIn(strings: Seq[Char], min: Int = 1) = ElemsWhileIn(strings, min)
+  def CharIn(strings: collection.Seq[Char]*) = ElemIn(strings:_*)
+  def CharsWhileIn(strings: collection.Seq[Char], min: Int = 1) = ElemsWhileIn(strings, min)
 
 
   val CharsWhile = ElemsWhile

@@ -8,10 +8,10 @@ object StringReprOps extends ReprOps[Char, String] {
   def length(input: String) = input.length
 
   def fromArray(input: Array[Char]): String = input.mkString
-  def fromSeq(input: Seq[Char]): String = input.mkString
+  def fromSeq(input: collection.Seq[Char]): String = input.mkString
   def fromSingle(input: Char): String = input.toString
   def toArray(input: String): Array[Char] = input.toCharArray
-  def flatten(input: Seq[String]): String = input.mkString
+  def flatten(input: collection.Seq[String]): String = input.mkString
   def prettyPrint(input: String): String = input
   def literalize(input: String): String = Utils.literalize(input)
   def errorMessage(input: ParserInput[Char, String], expected: String, idx: Int): String = {

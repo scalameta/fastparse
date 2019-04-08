@@ -113,7 +113,7 @@ object CssTokensParser {
   val squareBracketsBlock = P( "[" ~ componentValue.rep ~ "]" ).map(values => Ast.SquareBracketsBlock(values.flatten))
 
   val functionBlock = P( functionToken ~ componentValue.rep ~ ")").map{
-    case (Ast.FunctionToken(name), values: Seq[Option[Ast.ComponentValue]]) =>
+    case (Ast.FunctionToken(name), values: collection.Seq[Option[Ast.ComponentValue]]) =>
       Ast.FunctionBlock(name, Ast.BracketsBlock(values.flatten))
   }
 
@@ -204,7 +204,7 @@ object CssRulesParser {
   val atRule = P( complexAtRule | declAtRule | (simpleAtRule ~ ";") )
 
   val qualifiedRule = P( ((selector ~ ws) | (!"{" ~ componentValue).rep) ~ "{" ~ declarationList ~ ws ~ "}" ).map{
-    case (values: Seq[Option[Ast.ComponentValue]], block) => Ast.QualifiedRule(Right(values.flatten), block)
+    case (values: collection.Seq[Option[Ast.ComponentValue]], block) => Ast.QualifiedRule(Right(values.flatten), block)
     case (selector: Ast.Selector, block) => Ast.QualifiedRule(Left(selector), block)
   }
 

@@ -41,7 +41,7 @@ object PrettyPrinter {
     }
   }
 
-  def printComponentValues(values: Seq[ComponentValue]): String = {
+  def printComponentValues(values: collection.Seq[ComponentValue]): String = {
     if (values.nonEmpty) {
       def printBlock(block: Block): String =
         block.leftBracket + printComponentValues(block.values) + block.rightBracket

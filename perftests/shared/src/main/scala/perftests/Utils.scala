@@ -19,7 +19,7 @@ object Utils {
     count
   }
 
-  def benchmark(name: String, fs: Seq[() => Any], iterations: Int = 5, maxTime: Int = 10000): Seq[Seq[Int]] = {
+  def benchmark(name: String, fs: collection.Seq[() => Any], iterations: Int = 5, maxTime: Int = 10000): collection.Seq[collection.Seq[Int]] = {
     println(name)
     println(s"Max time - $maxTime ms. Iterations - $iterations.")
     (1 to iterations).map(i => {
@@ -34,7 +34,7 @@ object Utils {
   }
 
   def benchmarkIteratorBufferSizes[Elem, Repr](parser: Parser[_, Elem, Repr],
-                                                   sizes: Seq[Int],
+                                                   sizes: collection.Seq[Int],
                                                    iteratorFactory: Int => Iterator[Repr])
                                                   (implicit repr: ReprOps[Elem, Repr],
                                                    ct: ClassTag[Elem]): Unit = {
@@ -92,7 +92,7 @@ object Utils {
                                    ct: ClassTag[Elem]): Unit = {
 
     val results = Utils.benchmark(s"$name Benchmark",
-      Seq(
+      collection.Seq(
         Some(() => parser.parse(data)),
         dataFailOpt.map(dataFail =>
           () => parser.parse(dataFail).asInstanceOf[Parsed.Failure[Elem, Repr]].extra.traced
@@ -101,7 +101,7 @@ object Utils {
     )
     println(results.map(_.mkString(" ")).mkString("\n"))
 
-    val sizes = Seq(1, 2, 4, 16, 64, 1024, 4096)
+    val sizes = collection.Seq(1, 2, 4, 16, 64, 1024, 4096)
     Utils.benchmarkIteratorBufferSizes(parser, sizes, iteratorFactory)
 
     val iteratorResults = Utils.benchmark(s"$name Iterator Benchmark",

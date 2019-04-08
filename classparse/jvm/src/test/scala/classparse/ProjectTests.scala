@@ -11,10 +11,10 @@ import scala.concurrent.{Await, Future}
 import concurrent.ExecutionContext.Implicits.global
 
 object ProjectTests extends TestSuite {
-  def checkDir(initPath: String, dirs: Seq[String] = Seq("/"), srcFolders: Boolean = true,
+  def checkDir(initPath: String, dirs: collection.Seq[String] = collection.Seq("/"), srcFolders: Boolean = true,
                filter: String => Boolean = _ => true) = {
     println("Checking Dir " + initPath)
-    def listFiles(s: File): Seq[String] = {
+    def listFiles(s: File): collection.Seq[String] = {
       val (dirs, files) = Option(s.listFiles).getOrElse(Array[File]()).partition(_.isDirectory)
 
       files.map(_.getPath) ++ dirs.flatMap(listFiles)
@@ -50,7 +50,7 @@ object ProjectTests extends TestSuite {
     println()
   }
 
-  def checkRepo(commitHash: String, dirs: Seq[String] = Seq(""), srcFolders: Boolean = true,
+  def checkRepo(commitHash: String, dirs: collection.Seq[String] = collection.Seq(""), srcFolders: Boolean = true,
                 filter: String => Boolean = _ => true)
                (implicit testPath: utest.framework.TestPath) = {
     val url = "https://github.com/" + testPath.value.last
@@ -60,7 +60,7 @@ object ProjectTests extends TestSuite {
     println("CLONING?")
     if (!Files.exists(path)){
       println("CLONING")
-      Seq("git", "clone", url, path.toString, "--depth", "1").!
+      collection.Seq("git", "clone", url, path.toString, "--depth", "1").!
       new java.lang.ProcessBuilder()
         .command("git", "clone", url, path.toString)
         .directory(new java.io.File("."))
@@ -74,9 +74,9 @@ object ProjectTests extends TestSuite {
         .waitFor()
     }
     println("CLEANING")
-    Seq("mvn", "clean", "-f", "target/repos/" + name + "/pom.xml", "-q").!
+    collection.Seq("mvn", "clean", "-f", "target/repos/" + name + "/pom.xml", "-q").!
     println("COMPILING")
-    Seq("mvn", "compile", "-f", "target/repos/" + name + "/pom.xml", "-q").!
+    collection.Seq("mvn", "compile", "-f", "target/repos/" + name + "/pom.xml", "-q").!
     checkDir("target/repos/" + name, dirs, srcFolders, filter)
   }
 
@@ -91,11 +91,11 @@ object ProjectTests extends TestSuite {
     )
     "jenkinsci/jenkins" - checkRepo(
       "ce2d0f97bdbb5fb171443559d210dffef7961dc2",
-      dirs = Seq("/core", "/cli"), filter = !_.endsWith("package-info.java")
+      dirs = collection.Seq("/core", "/cli"), filter = !_.endsWith("package-info.java")
     )
     "immutables/immutables" - checkRepo(
       "b61c6517b8cbed79770c96c6e508c6ef055c6734",
-      dirs = Seq("/utility", "/testing", "/generator", "/generator-processor", "/generator-fixture",
+      dirs = collection.Seq("/utility", "/testing", "/generator", "/generator-processor", "/generator-fixture",
                  "/metainf", "/mirror", "/value", "/ordinal", "/builder", "/android-stub", "/gson", "/mongo",
                  "/func", "/value-processor", "/value-fixture", "/serial", "/cases", "/encode"),
       srcFolders = false,
@@ -107,7 +107,7 @@ object ProjectTests extends TestSuite {
     )
     "libgdx/libgdx" - checkRepo(
       "33086db72093482e1982888184e2ee6a3a848bbb",
-      dirs = Seq("/gdx"), srcFolders = false, filter = !_.endsWith("package-info.java")
+      dirs = collection.Seq("/gdx"), srcFolders = false, filter = !_.endsWith("package-info.java")
     )
   }
 

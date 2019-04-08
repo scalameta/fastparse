@@ -30,7 +30,7 @@ object BmpTests extends TestSuite {
 
       case class Pixel(colors: Bytes)
 
-      case class Bmp(fileHeader: FileHeader, bitmapHeader: BitmapHeader, pixels: Seq[Seq[Pixel]])
+      case class Bmp(fileHeader: FileHeader, bitmapHeader: BitmapHeader, pixels: collection.Seq[collection.Seq[Pixel]])
 
     }
 
@@ -88,7 +88,7 @@ object BmpTests extends TestSuite {
 
     val header = P( infoHeader | v2Header | v3Header | v4Header | v5Header)
 
-    def bmpRow(width: Int, bitsPerPixel: Int): P[Seq[Pixel]] = {
+    def bmpRow(width: Int, bitsPerPixel: Int): P[collection.Seq[Pixel]] = {
       val bytesPerPixel = bitsPerPixel / 8
       val padding = (width * bytesPerPixel) % 4
       P( AnyBytes(bytesPerPixel).!.~/.rep(exactly=width) ~/ AnyBytes(padding) ).map(
@@ -141,7 +141,7 @@ object BmpTests extends TestSuite {
         val Parsed.Success(bmp1, _) = bmp.parse(file1)
         assert(bmp1 == expected)
 
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val Parsed.Success(bmp1, _) = bmp.parseIterator(
             file1.toArray.grouped(chunkSize).map(Bytes.view)
           )
@@ -184,7 +184,7 @@ object BmpTests extends TestSuite {
         val Parsed.Success(bmp2, _) = bmp.parse(file1)
         assert(bmp2 == expected)
 
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val Parsed.Success(bmp2, _) = bmp.parseIterator(
             file1.toArray.grouped(chunkSize).map(Bytes.view)
           )

@@ -27,12 +27,12 @@ object Base64 {
     }
   }
 
-  val base64 = new B64Scheme((('A' to 'Z') ++ ('a' to 'z') ++ ('0' to '9') ++ Seq('+', '/')).toArray)
-  val base64Url = new B64Scheme(base64.encodeTable.dropRight(2) ++ Seq('-', '_'), false,
+  val base64 = new B64Scheme((('A' to 'Z') ++ ('a' to 'z') ++ ('0' to '9') ++ collection.Seq('+', '/')).toArray)
+  val base64Url = new B64Scheme(base64.encodeTable.dropRight(2) ++ collection.Seq('-', '_'), false,
     _.replaceAllLiterally("=", "%3D"),
     _.replaceAllLiterally("%3D", "="))
 
-  implicit class SeqEncoder(s: Seq[Byte]) {
+  implicit class SeqEncoder(s: collection.Seq[Byte]) {
     def toBase64(implicit scheme: B64Scheme = base64): String = Encoder(s.toArray).toBase64
   }
 
@@ -56,7 +56,7 @@ object Base64 {
         case 1 => sixBits(b(b.length - 2), b(b.length - 1), 0)
         case 2 => sixBits(b(b.length - 1), 0, 0)
       }
-      r.length = (r.length - pad)
+      r.setLength(r.length - pad)
       r ++= "=" * pad
       scheme.postEncode(r.toString())
     }

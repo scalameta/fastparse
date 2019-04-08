@@ -29,16 +29,16 @@ object ClassAttributes {
   case class ExceptionHandler(startIdx: Int, endIdx: Int, handlerIdx: Int, catchType: Option[Class])
 
   case class CodeAttribute(maxStack: Int, maxLocals: Int,
-                           code: Seq[OpCode], exceptions: Seq[ExceptionHandler],
-                           attributes: Seq[Attribute]) extends Attribute
+                           code: collection.Seq[OpCode], exceptions: collection.Seq[ExceptionHandler],
+                           attributes: collection.Seq[Attribute]) extends Attribute
 
-  case class ExceptionsAttribute(exceptions: Seq[Class]) extends Attribute
+  case class ExceptionsAttribute(exceptions: collection.Seq[Class]) extends Attribute
 
 
   case class InnerClass(innerClass: Class, outerClass: Option[Class],
                         innerName: Option[String], accessFlags: InnerClassFlags)
 
-  case class InnerClassesAttribute(classes: Seq[InnerClass]) extends Attribute
+  case class InnerClassesAttribute(classes: collection.Seq[InnerClass]) extends Attribute
 
   case class EnclosingMethodAttribute(enclosingClass: Class, enclosingMethodName: Option[String],
                                       enclosingMethodDescriptor: Option[String]) extends Attribute
@@ -51,9 +51,9 @@ object ClassAttributes {
 
   object DeprecatedAttribute extends Attribute
 
-  case class BootstrapMethod(bootstrapMethodRef: MethodHandle, bootstrapArguments: Seq[PoolItem])
+  case class BootstrapMethod(bootstrapMethodRef: MethodHandle, bootstrapArguments: collection.Seq[PoolItem])
 
-  case class BootstrapMethodsAttribute(bootstrapMethods: Seq[BootstrapMethod]) extends Attribute
+  case class BootstrapMethodsAttribute(bootstrapMethods: collection.Seq[BootstrapMethod]) extends Attribute
 
 
 
@@ -89,7 +89,7 @@ object ClassAttributes {
     val attributes = repeatWithSize(UInt16, attributeInfo.~/)
 
     P( max_stack ~ max_locals ~ code ~ exception_table ~ attributes ).map {
-       case (maxs: Int, maxl: Int, code: Seq[OpCode], exceptions, attrs: Seq[AttributeInfo]) =>
+       case (maxs: Int, maxl: Int, code: collection.Seq[OpCode], exceptions, attrs: collection.Seq[AttributeInfo]) =>
          (classInfo: ClassFileInfo) => CodeAttribute(
            maxs,
            maxl,
@@ -160,7 +160,7 @@ object ClassAttributes {
 
     val bootstrapMethod =
       P( bootstrap_method_ref ~ bootstrap_arguments ).map {
-        case (refIdx: Int, argsIdxs: Seq[Int]) => (classInfo: ClassFileInfo) =>
+        case (refIdx: Int, argsIdxs: collection.Seq[Int]) => (classInfo: ClassFileInfo) =>
           BootstrapMethod(
             MethodHandle(classInfo, classInfo.getInfoByIndex[MethodHandleInfo](refIdx).get),
             argsIdxs.map(

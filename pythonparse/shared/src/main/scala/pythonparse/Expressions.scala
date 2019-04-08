@@ -14,8 +14,8 @@ import Lexical.kw
  */
 object Expressions {
 
-  def tuplize(xs: Seq[Ast.expr]) = xs match{
-    case Seq(x) => x
+  def tuplize(xs: collection.Seq[Ast.expr]) = xs match{
+    case collection.Seq(x) => x
     case xs => Ast.expr.Tuple(xs, Ast.expr_context.Load)
   }
 
@@ -31,11 +31,11 @@ object Expressions {
     P( ternary | lambdef )
   }
   val or_test = P( and_test.rep(1, kw("or")) ).map{
-    case Seq(x) => x
+    case collection.Seq(x) => x
     case xs => Ast.expr.BoolOp(Ast.boolop.Or, xs)
   }
   val and_test = P( not_test.rep(1, kw("and")) ).map{
-    case Seq(x) => x
+    case collection.Seq(x) => x
     case xs => Ast.expr.BoolOp(Ast.boolop.And, xs)
   }
   val not_test: P[Ast.expr] = P( ("not" ~ not_test).map(Ast.expr.UnaryOp(Ast.unaryop.Not, _)) | comparison )
@@ -125,7 +125,7 @@ object Expressions {
   }
   val list_contents = P( test.rep(1, ",") ~ ",".? )
   val list = P( list_contents ).map(Ast.expr.List(_, Ast.expr_context.Load))
-  val tuple_contents = P( test ~ "," ~ list_contents.?).map { case (head, rest)  => head +: rest.getOrElse(Seq.empty) }
+  val tuple_contents = P( test ~ "," ~ list_contents.?).map { case (head, rest)  => head +: rest.getOrElse(collection.Seq.empty) }
   val tuple = P( tuple_contents).map(Ast.expr.Tuple(_, Ast.expr_context.Load))
   val list_comp_contents = P( test ~ comp_for.rep(1) )
   val list_comp = P( list_comp_contents ).map(Ast.expr.ListComp.tupled)
@@ -139,7 +139,7 @@ object Expressions {
     P( call | slice | attr )
   }
   val subscriptlist = P( subscript.rep(1, ",") ~ ",".? ).map{
-    case Seq(x) => x
+    case collection.Seq(x) => x
     case xs => Ast.slice.ExtSlice(xs)
   }
   val subscript: P[Ast.slice] = {
@@ -156,8 +156,8 @@ object Expressions {
   }
 
   val sliceop = P( ":" ~ test.? )
-  val exprlist: P[Seq[Ast.expr]] = P( expr.rep(1, sep = ",") ~ ",".? )
-  val testlist: P[Seq[Ast.expr]] = P( test.rep(1, sep = ",") ~ ",".? )
+  val exprlist: P[collection.Seq[Ast.expr]] = P( expr.rep(1, sep = ",") ~ ",".? )
+  val testlist: P[collection.Seq[Ast.expr]] = P( test.rep(1, sep = ",") ~ ",".? )
   val dictorsetmaker: P[Ast.expr] = {
     val dict_item = P( test ~ ":" ~ test )
     val dict: P[Ast.expr.Dict] = P(
@@ -191,7 +191,7 @@ object Expressions {
   }
   val comp_if: P[Ast.expr] = P( "if" ~ test )
 
-  val testlist1: P[Seq[Ast.expr]] = P( test.rep(1, sep = ",") )
+  val testlist1: P[collection.Seq[Ast.expr]] = P( test.rep(1, sep = ",") )
 
   // not used in grammar, but may appear in "node" passed from Parser to Compiler
   //  val encoding_decl: P0 = P( NAME )

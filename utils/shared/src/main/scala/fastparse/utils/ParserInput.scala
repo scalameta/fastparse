@@ -21,10 +21,10 @@ abstract class ReprOps[Elem, Repr] {
   def apply(value: Repr, i: Int): Elem
   def length(value: Repr): Int
   def fromArray(input: Array[Elem]): Repr
-  def fromSeq(input: Seq[Elem]): Repr
+  def fromSeq(input: collection.Seq[Elem]): Repr
   def fromSingle(input: Elem): Repr
   def toArray(input: Repr): Array[Elem]
-  def flatten(input: Seq[Repr]): Repr
+  def flatten(input: collection.Seq[Repr]): Repr
 }
 
 

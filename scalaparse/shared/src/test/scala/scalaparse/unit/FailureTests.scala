@@ -580,7 +580,7 @@ object FailureTests extends TestSuite{
       * - checkNeg(
         """
           |object ScopedVar {
-          |  def withScopedVars(ass: Seq[_, ]) = 1
+          |  def withScopedVars(ass: collection.Seq[_, ]) = 1
           |}
           |
         """.stripMargin,

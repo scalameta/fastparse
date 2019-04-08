@@ -65,12 +65,12 @@ object JsonTests extends TestSuite{
     P( space ~ "\"" ~/ (strChars | escape).rep.! ~ "\"").map(Js.Str)
 
   val array =
-    P( "[" ~/ jsonExpr.rep(sep=",".~/) ~ space ~ "]").map(Js.Arr(_:_*))
+    P( "[" ~/ jsonExpr.rep(sep=",".~/) ~ space ~ "]").map(xs => Js.Arr(xs.toIndexedSeq:_*))
 
   val pair = P( string.map(_.value) ~/ ":" ~/ jsonExpr )
 
   val obj =
-    P( "{" ~/ pair.rep(sep=",".~/) ~ space ~ "}").map(Js.Obj(_:_*))
+    P( "{" ~/ pair.rep(sep=",".~/) ~ space ~ "}").map(xs => Js.Obj(xs.toIndexedSeq:_*))
 
   val jsonExpr: P[Js.Val] = P(
     space ~ (obj | array | string | `true` | `false` | `null` | number) ~ space
@@ -130,7 +130,7 @@ object JsonTests extends TestSuite{
             val expected = expectedError.trim
             assert(error == expected)
         }
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           jsonExpr.parseIterator(s.grouped(chunkSize)) match {
             case s: Parsed.Success[_] => throw new Exception("Parsing should have failed:")
             case f: Parsed.Failure =>

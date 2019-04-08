@@ -13,7 +13,7 @@ object ParsingTests extends TestSuite{
     val parsed = parser.parse(str, index)
     assert(parsed == rhs)
     // Test iterator parsing
-    for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+    for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
       val parsed = parser.parse(str, index)
       assert(parsed == rhs)
     }
@@ -25,7 +25,7 @@ object ParsingTests extends TestSuite{
     val failureIndex = parsed.asInstanceOf[Parsed.Failure].index
     assert(failureIndex == expectedFailureIndex)
     // Test iterator parsing
-    for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+    for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
       val parsed = parser.parseIterator(str.grouped(chunkSize), index)
       val failureIndex = parsed.asInstanceOf[Parsed.Failure].index
       assert(failureIndex == expectedFailureIndex)
@@ -51,17 +51,17 @@ object ParsingTests extends TestSuite{
       check(IgnoreCase("`~@!3#$4%^&*()-_=+[{]}|\\,.? Hello World"), ("`~@!3#$4%^&*()-_=+[{]}|\\,.? hElLo wOrLd", 0), Success((), 39))
     }
     'repeat - {
-      check("Hello".!.rep, ("HelloHello!", 0), Success(Seq("Hello", "Hello"), 10))
-      check("Hello".!.rep, ("HelloHello!", 2), Success(Seq(), 2))
-      check("Hello".!.rep, ("HelloHello!", 5), Success(Seq("Hello"), 10))
-      check("Hello".!.rep(1), ("HelloHello!", 0), Success(Seq("Hello", "Hello"), 10))
-      check("Hello".!.rep(1, max = 1), ("HelloHello!", 0), Success(Seq("Hello"), 5))
-      check("Hello".!.rep(1, max = 2), ("HelloHello!", 0), Success(Seq("Hello", "Hello"), 10))
-      check("Hello".!.rep(1, max = 2), ("HelloHelloHello!", 0), Success(Seq("Hello", "Hello"), 10))
+      check("Hello".!.rep, ("HelloHello!", 0), Success(collection.Seq("Hello", "Hello"), 10))
+      check("Hello".!.rep, ("HelloHello!", 2), Success(collection.Seq(), 2))
+      check("Hello".!.rep, ("HelloHello!", 5), Success(collection.Seq("Hello"), 10))
+      check("Hello".!.rep(1), ("HelloHello!", 0), Success(collection.Seq("Hello", "Hello"), 10))
+      check("Hello".!.rep(1, max = 1), ("HelloHello!", 0), Success(collection.Seq("Hello"), 5))
+      check("Hello".!.rep(1, max = 2), ("HelloHello!", 0), Success(collection.Seq("Hello", "Hello"), 10))
+      check("Hello".!.rep(1, max = 2), ("HelloHelloHello!", 0), Success(collection.Seq("Hello", "Hello"), 10))
 
-      check("Hello".!.rep(0, max=0), ("HelloHello!", 0), Success(Seq(), 0))
+      check("Hello".!.rep(0, max=0), ("HelloHello!", 0), Success(collection.Seq(), 0))
       // identical :  check( ("Hello" | Pass).!, ("HelloHello!", 0), Success("Hello", 5))
-      check("Hello".!.rep(0, max=1), ("HelloHello!", 0), Success(Seq("Hello"), 5))
+      check("Hello".!.rep(0, max=1), ("HelloHello!", 0), Success(collection.Seq("Hello"), 5))
 
       checkFail("Hello".rep(1), ("HelloHello!", 2), 2)
       checkFail("Hello".rep ~ "bye" ~ End, ("HelloHello!", 0), 10)
@@ -70,7 +70,7 @@ object ParsingTests extends TestSuite{
       check("Hello".! | "Bye".!, ("HelloBye", 0), Success("Hello", 5))
       check(("Hello" | "Bye").!, ("HelloBye", 5), Success("Bye", 8))
       checkFail("Hello" | "Bye", ("HelloBye", 2), 2)
-      check(("Hello" | "Bye").!.rep, ("HelloBye", 0), Success(Seq("Hello", "Bye"), 8))
+      check(("Hello" | "Bye").!.rep, ("HelloBye", 0), Success(collection.Seq("Hello", "Bye"), 8))
       check(("Hello" | "Bye").rep.!, ("HelloBye", 0), Success("HelloBye", 8))
     }
     'sequence - {

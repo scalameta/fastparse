@@ -26,7 +26,7 @@ object TestUtil {
         )
       case _: Parsed.Success[_] => assert({implicitly(input); false})
     }
-    for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+    for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
       val res = Scala.CompilationUnit.parseIterator(input.grouped(chunkSize))
       res match{
         case f: Parsed.Failure =>
@@ -56,7 +56,7 @@ object TestUtil {
     val iteratorRes =
       if (skipIterator) Nil
       else
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024))
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024))
         yield Scala.CompilationUnit.parseIterator(input.grouped(chunkSize))
 
     for(res <- normalRes +: iteratorRes){

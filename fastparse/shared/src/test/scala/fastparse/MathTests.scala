@@ -9,7 +9,7 @@ import scala.collection.mutable
  * evaluating simple arithmetic expressions
  */
 object MathTests extends TestSuite{
-  def eval(tree: (Int, Seq[(String, Int)])) = {
+  def eval(tree: (Int, collection.Seq[(String, Int)])) = {
     val (base, ops) = tree
     ops.foldLeft(base){ case (left, (op, right)) => op match{
       case "+" => left + right case "-" => left - right
@@ -44,7 +44,7 @@ object MathTests extends TestSuite{
         // Check iterator parsing results in a failure in the right place. Note
         // that we aren't checking the `.traced.trace` because that requires a
         // second parse which doesn't work with iterators (which get exhausted)
-        for(chunkSize <- Seq(1, 4, 16, 64, 256, 1024)){
+        for(chunkSize <- collection.Seq(1, 4, 16, 64, 256, 1024)){
           val failure = expr.parseIterator(input.grouped(chunkSize)).asInstanceOf[Parsed.Failure]
           assert(failure.msg == expectedShortTrace.trim)
         }
