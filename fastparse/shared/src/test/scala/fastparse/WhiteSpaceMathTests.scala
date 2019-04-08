@@ -1,6 +1,6 @@
 package scala.meta.internal.fastparse
 
-import acyclic.file
+// import acyclic.file
 import utest._
 
 /**

@@ -1,5 +1,5 @@
 package pythonparse
-import acyclic.file
+// import acyclic.file
 
 /**
  * A python abstract syntax tree

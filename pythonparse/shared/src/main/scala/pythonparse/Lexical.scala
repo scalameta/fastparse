@@ -1,5 +1,5 @@
 package pythonparse
-import acyclic.file
+// import acyclic.file
 object  WsApi extends fastparse.WhitespaceApi.Wrapper(Lexical.wscomment)
 /**
  * Python's lexical grammar; how basic tokens get parsed. This stuff is

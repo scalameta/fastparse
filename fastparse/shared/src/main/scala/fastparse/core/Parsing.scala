@@ -1,6 +1,6 @@
 package scala.meta.internal.fastparse
 package core
-import acyclic.file
+// import acyclic.file
 
 import scala.meta.internal.fastparse.utils._
 

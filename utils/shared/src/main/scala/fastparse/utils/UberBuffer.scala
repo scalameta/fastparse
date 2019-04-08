@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.utils
-import acyclic.file
+// import acyclic.file
 import scala.reflect.ClassTag
 
 /**

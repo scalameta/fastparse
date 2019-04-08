@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.parsers
-import acyclic.file
+// import acyclic.file
 import scala.meta.internal.fastparse.core.Mutable
 import scala.meta.internal.fastparse.core.Parser
 import scala.meta.internal.fastparse.core.ParseCtx

@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.byte
-import acyclic.file
+// import acyclic.file
 import scala.meta.internal.fastparse._
 import scala.meta.internal.fastparse.core.ParserApi
 import scala.meta.internal.fastparse.parsers.{Intrinsics, Terminals}

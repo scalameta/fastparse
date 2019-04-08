@@ -19,16 +19,17 @@ def macroDependencies(version: String) =
 val shared = Seq(
   libraryDependencies ++= macroDependencies(scalaVersion.value),
   libraryDependencies ++= Seq(
-    "com.lihaoyi" %%% "utest" % "0.5.4" % "test",
-    "com.lihaoyi" %%% "sourcecode" % "0.1.4"
+    "com.lihaoyi" %%% "utest" % "0.6.7" % "test",
+    "com.lihaoyi" %%% "sourcecode" % "0.1.6"
   ),
   scalaJSStage in Global := FullOptStage,
   organization := "org.scalameta",
   version := Constants.version,
   scalaVersion := Constants.scala212,
-  crossScalaVersions := Seq(Constants.scala210, Constants.scala211, Constants.scala212),
-  libraryDependencies += "com.lihaoyi" %% "acyclic" % "0.1.5" % "provided",
-  addCompilerPlugin("com.lihaoyi" %% "acyclic" % "0.1.5"),
+  crossScalaVersions := Seq(Constants.scala211, Constants.scala212, Constants.scala213),
+  resolvers += Resolver.sonatypeRepo("public"),
+  // libraryDependencies += "com.lihaoyi" %% "acyclic" % "0.1.5" % "provided",
+  // addCompilerPlugin("com.lihaoyi" %% "acyclic" % "0.1.5"),
   autoCompilerPlugins := true,
   testFrameworks += new TestFramework("utest.runner.Framework"),
   publishTo := Some("releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"),

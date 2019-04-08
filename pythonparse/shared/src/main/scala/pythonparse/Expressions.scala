@@ -3,7 +3,7 @@ package pythonparse
 import scala.meta.internal.fastparse.core.Implicits.Sequencer
 import scala.meta.internal.fastparse.noApi._
 import WsApi._
-import acyclic.file
+// import acyclic.file
 import Lexical.kw
 /**
  * Python's expression grammar. This is stuff that can be used within a larger

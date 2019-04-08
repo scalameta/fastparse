@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.core
-import acyclic.file
+// import acyclic.file
 import scala.meta.internal.fastparse.core.Implicits._
 import scala.meta.internal.fastparse.parsers.Combinators.{Capturing, Cut, Either, Logged, Not, Opaque, Optional, Repeat, Sequence}
 import scala.meta.internal.fastparse.parsers.Terminals.Pass

@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse
-import acyclic.file
+// import acyclic.file
 
 import language.experimental.macros
 import scala.meta.internal.fastparse.parsers.Intrinsics

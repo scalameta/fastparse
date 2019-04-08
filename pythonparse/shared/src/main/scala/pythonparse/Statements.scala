@@ -2,7 +2,7 @@ package pythonparse
 import scala.meta.internal.fastparse.noApi._
 import WsApi._
 import Expressions._
-import acyclic.file
+// import acyclic.file
 import Lexical.kw
 object Statements extends Statements(0)
 /**

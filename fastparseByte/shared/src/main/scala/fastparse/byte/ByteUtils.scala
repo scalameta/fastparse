@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.byte
-import acyclic.file
+// import acyclic.file
 import scodec.bits.ByteVector
 import scala.meta.internal.fastparse.utils.Utils.IsReachable
 import scala.meta.internal.fastparse.core.ParseCtx

@@ -1,6 +1,6 @@
 package scala.meta.internal.fastparse.utils
 
-import acyclic.file
+// import acyclic.file
 import scala.language.experimental.macros
 
 object MacroUtils{

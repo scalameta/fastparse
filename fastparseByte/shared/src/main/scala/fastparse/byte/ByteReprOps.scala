@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.byte
-import acyclic.file
+// import acyclic.file
 import scala.meta.internal.fastparse.utils.{ElemSetHelper, Generator, ParserInput, ReprOps}
 import scala.meta.internal.fastparse.utils.Utils.HexUtils
 import scodec.bits.ByteVector

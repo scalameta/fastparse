@@ -1,5 +1,5 @@
 package scala.meta.internal.fastparse.parsers
-import acyclic.file
+// import acyclic.file
 import scala.meta.internal.fastparse.utils.Utils._
 import scala.meta.internal.fastparse.core.{ParseCtx, Parsed, Parser, Precedence}
 import scala.meta.internal.fastparse.utils.{ElemSetHelper, Generator, ReprOps, Utils}

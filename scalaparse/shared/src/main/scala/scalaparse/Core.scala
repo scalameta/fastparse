@@ -1,6 +1,6 @@
 package scalaparse
 
-import acyclic.file
+// import acyclic.file
 import syntax.{Key, Basic}
 
 import scala.language.implicitConversions

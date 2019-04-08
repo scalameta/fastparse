@@ -1,6 +1,6 @@
 package scala.meta.internal.fastparse
 import scala.meta.internal.fastparse.utils._
-import acyclic.file
+// import acyclic.file
 
 object StringReprOps extends ReprOps[Char, String] {
   def apply(input: String, i: Int) = input.charAt(i)
