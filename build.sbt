@@ -17,8 +17,8 @@ def macroDependencies(version: String) =
 val shared = collection.Seq(
   libraryDependencies ++= macroDependencies(scalaVersion.value),
   libraryDependencies ++= collection.Seq(
-    "com.lihaoyi" %%% "utest" % "0.6.7" % "test",
-    "com.lihaoyi" %%% "sourcecode" % "0.1.6"
+    "com.lihaoyi" %%% "utest" % "0.7.4" % "test",
+    "com.lihaoyi" %%% "sourcecode" % "0.2.1"
   ),
   scalaJSStage in Global := FullOptStage,
   organization := "org.scalameta",
