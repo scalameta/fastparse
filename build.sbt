@@ -52,6 +52,14 @@ val shared = collection.Seq(
       </developers>
 )
 
+lazy val jsSettings = collection.Seq(
+  scalacOptions ++= (if(isSnapshot.value) Seq.empty else {
+    val localDir = (baseDirectory in ThisBuild).value.toURI.toString
+    val githubDir = "https://raw.githubusercontent.com/scalameta/fastparse"
+    Seq(s"-P:scalajs:mapSourceURI:$localDir->$githubDir/v${version.value}/")
+  })
+)
+
 lazy val nativeSettings = collection.Seq(
   scalaVersion := Constants.scala211,
   crossScalaVersions := collection.Seq(Constants.scala211),
@@ -120,6 +128,7 @@ lazy val fastparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   )
   // In order to make the midi-parser-test in fastparseJVM/test:run work
   .jvmSettings(fork in (Test, run) := true)
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val fastparseJS = fastparse.js
 lazy val fastparseJVM = fastparse.jvm
@@ -132,6 +141,7 @@ lazy val fastparseByte = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     name := "fastparse-byte",
     libraryDependencies += "org.scodec" %%% "scodec-bits" % "1.1.5"
   )
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val fastparseByteJS = fastparseByte.js
 lazy val fastparseByteJVM = fastparseByte.jvm
@@ -147,6 +157,7 @@ lazy val scalaparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .jvmSettings(
     libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value % "test"
   )
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val scalaparseJS = scalaparse.js
 lazy val scalaparseJVM = scalaparse.jvm
@@ -159,6 +170,7 @@ lazy val pythonparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .settings(
     name := "pythonparse"
   )
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val pythonparseJVM = pythonparse.jvm
 lazy val pythonparseJS = pythonparse.js
@@ -174,6 +186,7 @@ lazy val cssparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
   .jvmSettings(
     libraryDependencies += "net.sourceforge.cssparser" % "cssparser" % "0.9.18" % "test"
   )
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val cssparseJVM = cssparse.jvm
 lazy val cssparseJS = cssparse.js
@@ -185,6 +198,7 @@ lazy val classparse = crossProject(JSPlatform, JVMPlatform, NativePlatform)
     shared,
     name := "classparse"
   )
+  .jsSettings(jsSettings)
   .nativeSettings(nativeSettings)
 lazy val classparseJVM = classparse.jvm
 lazy val classparseJS = classparse.js
