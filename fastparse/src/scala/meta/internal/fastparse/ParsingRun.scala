@@ -1,6 +1,6 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.internal.{Instrument, Lazy, Msgs, Util}
+import scala.meta.internal.fastparse.internal.{Instrument, Lazy, Msgs, Util}
 
 /**
   * Models an in-progress parsing run; contains all the mutable state that may

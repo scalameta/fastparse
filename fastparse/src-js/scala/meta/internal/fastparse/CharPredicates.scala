@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 /**
   * Fast, pre-computed character predicates for charactes from 0 to 65535

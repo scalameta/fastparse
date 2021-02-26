@@ -1,6 +1,6 @@
-package fastparse.internal
+package scala.meta.internal.fastparse.internal
 
-import fastparse.{ParserInput, ParsingRun}
+import scala.meta.internal.fastparse.{ParserInput, ParsingRun}
 
 import scala.annotation.{switch, tailrec}
 import scala.collection.mutable.ArrayBuffer

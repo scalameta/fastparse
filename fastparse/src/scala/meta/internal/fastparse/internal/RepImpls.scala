@@ -1,6 +1,6 @@
-package fastparse.internal
+package scala.meta.internal.fastparse.internal
 
-import fastparse.{Implicits, NoWhitespace, ParsingRun}
+import scala.meta.internal.fastparse.{Implicits, NoWhitespace, ParsingRun}
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -54,10 +54,10 @@ object MacroRepImpls{
       case None => q"$rec($beforeSepIndex, $count + 1, $parsedAgg)"
       case Some(ws) =>
         q"""
-        if ($ws ne _root_.fastparse.NoWhitespace.noWhitespaceImplicit) {
-           _root_.fastparse.internal.Util.consumeWhitespace($ws, $ctx1)
+        if ($ws ne _root_.scala.meta.internal.fastparse.NoWhitespace.noWhitespaceImplicit) {
+           _root_.scala.meta.internal.fastparse.internal.Util.consumeWhitespace($ws, $ctx1)
         }
-        if (!$ctx1.isSuccess && $ctx1.cut) $ctx1.asInstanceOf[_root_.fastparse.ParsingRun[scala.Nothing]]
+        if (!$ctx1.isSuccess && $ctx1.cut) $ctx1.asInstanceOf[_root_.scala.meta.internal.fastparse.ParsingRun[scala.Nothing]]
         else{
           $ctx1.cut = false
           $rec($beforeSepIndex, $count + 1, $parsedAgg)
@@ -73,7 +73,7 @@ object MacroRepImpls{
           @_root_.scala.annotation.tailrec
           def $rec($startIndex: _root_.scala.Int,
                    $count: _root_.scala.Int,
-                   $lastAgg: _root_.fastparse.internal.Msgs): _root_.fastparse.P[${c.weakTypeOf[V]}] = {
+                   $lastAgg: _root_.scala.meta.internal.fastparse.internal.Msgs): _root_.scala.meta.internal.fastparse.P[${c.weakTypeOf[V]}] = {
             $ctx1.cut = $minCut
             ${c.prefix}.parse0()
 
@@ -82,7 +82,7 @@ object MacroRepImpls{
             $originalCut |= $ctx1.cut
             if (!$ctx1.isSuccess) {
               val res =
-                if ($ctx1.cut) $ctx1.asInstanceOf[_root_.fastparse.P[${c.weakTypeOf[V]}]]
+                if ($ctx1.cut) $ctx1.asInstanceOf[_root_.scala.meta.internal.fastparse.P[${c.weakTypeOf[V]}]]
                 else $endSnippet
               if ($ctx1.verboseFailures) {
                 $ctx1.aggregateMsg(

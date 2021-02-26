@@ -1,6 +1,6 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse.internal.{Msgs, Util}
+import scala.meta.internal.fastparse.internal.{Msgs, Util}
 
 /**
   * The outcome of a [[ParsingRun]] run, either a success (with value and index) or

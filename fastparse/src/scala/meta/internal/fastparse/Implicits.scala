@@ -1,4 +1,4 @@
-package fastparse
+package scala.meta.internal.fastparse
 
 import scala.collection.mutable
 

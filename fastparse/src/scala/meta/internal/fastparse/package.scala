@@ -1,5 +1,7 @@
-import fastparse.internal._
-import fastparse.internal.{Instrument, Logger}
+package scala.meta.internal
+
+import scala.meta.internal.fastparse._
+import scala.meta.internal.fastparse.internal._
 
 import language.experimental.macros
 
@@ -110,7 +112,7 @@ package object fastparse {
   /**
     * Provides [[EagerOps]] extension methods on [[String]]
     */
-  implicit def EagerOpsStr(parse0: String)(implicit ctx: P[Any]): fastparse.EagerOps[Unit] = macro MacroImpls.eagerOpsStrMacro
+  implicit def EagerOpsStr(parse0: String)(implicit ctx: P[Any]): scala.meta.internal.fastparse.EagerOps[Unit] = macro MacroImpls.eagerOpsStrMacro
 
 
   /**
@@ -221,7 +223,7 @@ package object fastparse {
   /**
     * Provides [[ByNameOps]] extension methods on [[String]]s
     */
-  implicit def ByNameOpsStr(parse0: String)(implicit ctx: P[Any]): fastparse.ByNameOps[Unit] =
+  implicit def ByNameOpsStr(parse0: String)(implicit ctx: P[Any]): scala.meta.internal.fastparse.ByNameOps[Unit] =
   macro MacroImpls.byNameOpsStrMacro
   /**
     * Provides [[ByNameOps]] extension methods on [[P]]s
@@ -384,7 +386,7 @@ package object fastparse {
     * Provides logging-related [[LogByNameOps]] implicits on [[String]].
     */
   implicit def LogOpsStr(parse0: String)
-                        (implicit ctx: P[Any]): fastparse.LogByNameOps[Unit] =
+                        (implicit ctx: P[Any]): scala.meta.internal.fastparse.LogByNameOps[Unit] =
     macro MacroImpls.logOpsStrMacro
   /**
     * Separated out from [[ByNameOps]] because `.log` isn't easy to make an
