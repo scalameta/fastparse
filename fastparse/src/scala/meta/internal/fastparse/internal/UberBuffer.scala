@@ -1,5 +1,4 @@
-package fastparse.internal
-
+package scala.meta.internal.fastparse.internal
 
 /**
   * A very fast circular, growable read-write byte buffer.

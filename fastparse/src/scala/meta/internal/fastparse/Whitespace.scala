@@ -1,7 +1,7 @@
-package fastparse
+package scala.meta.internal.fastparse
 
-import fastparse._
-import fastparse.internal.Util
+import scala.meta.internal.fastparse._
+import scala.meta.internal.fastparse.internal.Util
 
 import scala.annotation.{Annotation, switch, tailrec}
 /**

@@ -1,6 +1,7 @@
-package fastparse.internal
+package scala.meta.internal.fastparse.internal
 
-import fastparse.{EagerOps, Implicits, ParserInput, ParsingRun}
+import scala.meta.internal.fastparse.{EagerOps, Implicits, ParserInput, ParsingRun}
+import scala.meta.internal.fastparse
 
 import scala.annotation.tailrec
 import scala.reflect.macros.blackbox.Context
@@ -104,7 +105,7 @@ object MacroImpls {
               .map { case (char, i) => q"""$stringSym.apply($offsetSym + $i) == $char""" }
               .reduce[Tree]{case (l, r) => q"$l && $r"}
 
-            q"($stringSym: _root_.fastparse.ParserInput, $offsetSym: _root_.scala.Int) => $checks"
+            q"($stringSym: _root_.scala.meta.internal.fastparse.ParserInput, $offsetSym: _root_.scala.Int) => $checks"
           }
           reify {
 
@@ -262,10 +263,10 @@ object MacroImpls {
 
   def eagerOpsStrMacro(c: Context)
                       (parse0: c.Expr[String])
-                      (ctx: c.Expr[ParsingRun[Any]]): c.Expr[fastparse.EagerOps[Unit]] = {
+                      (ctx: c.Expr[ParsingRun[Any]]): c.Expr[scala.meta.internal.fastparse.EagerOps[Unit]] = {
     import c.universe._
     val literal = literalStrMacro(c)(parse0)(ctx)
-    reify{ fastparse.EagerOps[Unit](literal.splice)}
+    reify{ scala.meta.internal.fastparse.EagerOps[Unit](literal.splice)}
   }
 
 
@@ -471,7 +472,7 @@ object MacroImpls {
 
         if ($ctx1.verboseFailures) $ctx1.aggregateMsg(
           $preLhsIndex,
-          _root_.fastparse.internal.Util.joinBinOp($lhsMsg, $rhsMsg),
+          _root_.scala.meta.internal.fastparse.internal.Util.joinBinOp($lhsMsg, $rhsMsg),
           $rhsAggregate ::: $lhsAggregate,
           // We override the failureGroupAggregate to avoid building an `a ~ b`
           // aggregate msg in the specific case where the LHS parser fails to
@@ -485,10 +486,10 @@ object MacroImpls {
     val guardedRhs = whitespace match{
       case None => rhsSnippet
       case Some(ws) =>
-        if (ws.tree.tpe =:= typeOf[fastparse.NoWhitespace.noWhitespaceImplicit.type]) rhsSnippet
+        if (ws.tree.tpe =:= typeOf[scala.meta.internal.fastparse.NoWhitespace.noWhitespaceImplicit.type]) rhsSnippet
         else{
           q"""
-            _root_.fastparse.internal.Util.consumeWhitespace($ws, $ctx1)
+            _root_.scala.meta.internal.fastparse.internal.Util.consumeWhitespace($ws, $ctx1)
             if ($ctx1.isSuccess) $rhsSnippet
             else $ctx1
           """
@@ -514,7 +515,7 @@ object MacroImpls {
           }
         }
       }
-    }.asInstanceOf[_root_.fastparse.ParsingRun[${c.weakTypeOf[R]}]]""")
+    }.asInstanceOf[_root_.scala.meta.internal.fastparse.ParsingRun[${c.weakTypeOf[R]}]]""")
   }
 
   def cutMacro[T: c.WeakTypeTag](c: Context)(ctx: c.Expr[ParsingRun[_]]): c.Expr[ParsingRun[T]] = {
@@ -631,7 +632,7 @@ object MacroImpls {
 
   def byNameOpsStrMacro(c: Context)
                        (parse0: c.Expr[String])
-                       (ctx: c.Expr[ParsingRun[Any]]): c.Expr[fastparse.ByNameOps[Unit]] = {
+                       (ctx: c.Expr[ParsingRun[Any]]): c.Expr[scala.meta.internal.fastparse.ByNameOps[Unit]] = {
     import c.universe._
     val literal = MacroImpls.literalStrMacro(c)(parse0)(ctx)
     reify{ new fastparse.ByNameOps[Unit](() => literal.splice)}
@@ -639,10 +640,10 @@ object MacroImpls {
 
   def logOpsStrMacro(c: Context)
                        (parse0: c.Expr[String])
-                       (ctx: c.Expr[ParsingRun[Any]]): c.Expr[fastparse.LogByNameOps[Unit]] = {
+                       (ctx: c.Expr[ParsingRun[Any]]): c.Expr[scala.meta.internal.fastparse.LogByNameOps[Unit]] = {
     import c.universe._
     val literal = MacroImpls.literalStrMacro(c)(parse0)(ctx)
-    reify{ new fastparse.LogByNameOps[Unit](literal.splice)(ctx.splice)}
+    reify{ new scala.meta.internal.fastparse.LogByNameOps[Unit](literal.splice)(ctx.splice)}
   }
 
   def optionMacro[T: c.WeakTypeTag, V: c.WeakTypeTag](c: Context)

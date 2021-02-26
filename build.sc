@@ -6,7 +6,7 @@ import publish._
 import mill.eval.Result
 import mill.modules.Jvm.createJar
 
-val crossVersions = Seq("2.12.13", "2.13.4")
+val crossVersions = Seq("2.12.13", "2.13.4", "2.11.12")
 val crossJsVersions = Seq("2.12.13" -> "1.4.0", "2.13.4" -> "1.4.0")
 val crossNativeVersions = Seq("2.12.13" -> "0.4.0", "2.13.4" -> "0.4.0")
 
@@ -54,14 +54,20 @@ object fastparse extends Module{
 trait FastparseModule extends CommonCrossModule{
   def ivyDeps = Agg(
     ivy"com.lihaoyi::sourcecode::0.2.3",
-    ivy"com.lihaoyi::geny::0.6.5"
+    {
+      if (scalaVersion().startsWith("2.11")){
+        ivy"com.lihaoyi::geny::0.1.4"
+      } else {
+        ivy"com.lihaoyi::geny::0.6.5"
+      }
+    }
   )
   def compileIvyDeps = Agg(
     ivy"org.scala-lang:scala-reflect:${scalaVersion()}"
   )
   def generatedSources = T{
     val dir = T.ctx().dest
-    val file = dir/"fastparse"/"SequencerGen.scala"
+    val file = dir/"scala"/"meta"/"internal"/"fastparse"/"SequencerGen.scala"
     // Only go up to 21, because adding the last element makes it 22
     val tuples = (2 to 21).map{ i =>
       val ts = (1 to i) map ("T" + _)
@@ -78,7 +84,7 @@ trait FastparseModule extends CommonCrossModule{
           """
     }
     val output = s"""
-      package fastparse
+      package scala.meta.internal.fastparse
       trait SequencerGen[Sequencer[_, _, _]] extends LowestPriSequencer[Sequencer]{
         protected[this] def Sequencer0[A, B, C](f: (A, B) => C): Sequencer[A, B, C]
         ${tuples.mkString("\n")}
@@ -164,11 +170,11 @@ trait ExampleParseNativeModule extends CommonCrossModule with ScalaNativeModule{
 trait CommonCrossModule extends CrossScalaModule with PublishModule{
 
   def publishVersion = "2.3.1"
-  def artifactName = millModuleSegments.parts.dropRight(2).mkString("-").stripSuffix(s"-$platformSegment")
+  def artifactName = millModuleSegments.parts.dropRight(2).mkString("-").stripSuffix(s"-$platformSegment").replace("fastparse", "fastparse-v2")
   def pomSettings = PomSettings(
     description = artifactName(),
-    organization = "com.lihaoyi",
-    url = "https://github.com/lihaoyi/fastparse",
+    organization = "org.scalameta",
+    url = "https://github.com/scalameta/fastparse",
     licenses = Seq(License.MIT),
     scm = SCM(
       "git://github.com/lihaoyi/fastparse.git",
